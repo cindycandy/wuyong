@@ -18,7 +18,7 @@ field_embed_size=64
 type_embed_size=64
 lr=0.0005
 lr_decay=0.5
-batch_size=2
+batch_size=10
 max_epoch=400
 beam_size=15
 lstm='lstm'  # attention（rat） parent_feed lstm（transforemr）
@@ -30,7 +30,7 @@ load_model="hard_hs.lstm.hidden128.embed128.action128.field64.type64.dr0.3.lr0.0
 #dataflow "hard_hs.lstm.hidden128.embed128.action128.field64.type64.dr0.3.lr0.0005.lr_de0.5.lr_da15.beam15.vocab_hard.freq3.bin.train_hard.bin.glorot.par_state.seed0.bin"
 
 # commandline="-batch_size 10 -max_epoch 200 -valid_per_batch 280 -save_per_batch 280 -decode_max_time_step 350 -optimizer adadelta -rule_embed_dim 128 -node_embed_dim 64 -valid_metric bleu"
-# echo "**** Writing results to logs/conala/${model_name}.log ****"
+ echo "**** Writing results to logs/hs/${model_name}.log ****"
 # mkdir -p logs/conala
 # echo commit hash: `git rev-parse HEAD` > logs/conala/${model_name}.log
 

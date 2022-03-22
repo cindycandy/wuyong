@@ -264,8 +264,7 @@ class Parser(nn.Module):
         plt.savefig(path)
         plt.close()
 
-    def new_relation_update(self,src,relation,alpha,lens):
-        src = src.transpose(0,1)
+    def new_relation_update(self,src,relation,lens):
         batch_size,emb_size = src.shape[0],src.shape[1]
         # size = src.shape[-1]
         # print(src.shape,self.args.action_embed_size)
@@ -306,14 +305,14 @@ class Parser(nn.Module):
             src_token_embed = pack_padded_sequence(src_token_embed, src_sents_len)
             src_encodings, (last_state, last_cell) = self.encoder_lstm(src_token_embed)
             src_encodings, _ = pad_packed_sequence(src_encodings)
+            src_encodings = src_encodings.permute(1, 0, 2)
             #利用rat的attention更新
             # src_encodings = self.update_with_relation(src_encodings.data, relation,src_sents_len)
             #利用dataflow的方式更新
-            # src_encodings,atts = self.new_relation_update(src_encodings.data, relation,5,src_sents_len)
+            src_encodings,atts = self.new_relation_update(src_encodings.data, relation,src_sents_len)
             # print("last state",src_tokens.transpose(0,1)[0],atts[0][0][0].shape,src_sents_len)
             # self.display_attention(src_tokens.transpose(0,1)[0].tolist(),src_tokens.transpose(0,1)[0].tolist(),atts[0][0][0],"m.jpg")
             # src_encodings: (batch_size, tgt_query_len, hidden_size)
-            src_encodings = src_encodings.permute(1, 0, 2)
             last_state = torch.cat([last_state[0], last_state[1]], 1)
             last_cell = torch.cat([last_cell[0], last_cell[1]], 1)
             # print(src_encodings.shape, "return one")

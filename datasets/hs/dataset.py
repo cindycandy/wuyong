@@ -141,94 +141,94 @@ def fix_relation(relation):
     return fixed_relations
 
 
-# def get_matched_api(data):
-#     # print(data.replace('§','\n'))
-#     matched = []
-#     gold_ast_tree = ast.parse(data).body[0]
-#     #由此处观察整个ast的结构
-#     # print(astor.dump_tree(gold_ast_tree))
-#     n = 0
-#     for node in ast.walk(gold_ast_tree):
-#         # print(n)
-#         # n =n+1
-#         # print(type(node))
-#         if type(node) is ast.ClassDef:matched.append(node.name)
-#         if type(node) is ast.FunctionDef:
-#             matched.append(node.name)
-#             # print("FunctionDef", node.name)
-#         if type(node) is ast.Call:
-#             # print("func",node.func)
-#             if type(node.func) is ast.Name:
-#                 matched.append(node.func.id)
-#                 # print("Call", node.func.id)
-#             if type(node.func) is ast.Attribute:
-#                 matched.append(node.func.attr)
-#                 # print("Call", node.func.id)
-#         if type(node) is ast.keyword:
-#             # print("keywords",node.arg)
-#             matched.append(node.arg)
-#             # print("value", node.value)
-#             # if type(node.value) is ast.Attribute:
-#             #     # matched.append(node.attr)
-#             #     print("Attribute", node.value.attr)
-#         # if type(node) is ast.Attribute:
-#         #     if type(node.value) is ast.Name:
-#         #         print("Name",node.value.id)
-#         #     tmp_node = node
-#         #     while type(tmp_node) is ast.Attribute:
-#         #         # matched.append(tmp_node.attr)
-#         #         print("Attribute", tmp_node.attr)
-#         #         tmp_node = tmp_node.value
-#
-#     while '__init__' in matched:
-#         matched.remove('__init__')
-#     while 'super' in matched:
-#         matched.remove('super')
-#     matched.append('API_END')
-#     # print("matched",matched)
-#     return matched
-
 def get_matched_api(data):
     # print(data.replace('§','\n'))
     matched = []
     gold_ast_tree = ast.parse(data).body[0]
-    # 这个方法当前不太好用，主要是由于同时存在visit_xxx时，调用该函数实例.visit只会调用第一个visit_xxx
-    class CodeVisitor(ast.NodeVisitor):
-        #两个方法不是完全对应的，上面的walk好像更完全，下面的node能访问到（）前的方法
-        def visit_ClassDef(self, node):
-            if isinstance(node,ast.ClassDef):
-                matched.append(node.name)
-                # print("hahha",node.name)
-        def visit_Assign(self, node):
-            # print("222",node)
-            if isinstance(node,ast.Assign):
-                matched.append(node.name)
-                # print("hahha",node.name)
-        def visit_Call(self, node):
-            if isinstance(node.func, ast.Attribute):
-                matched.append(node.func.attr)
-                # print("___attribute___", node.func.attr, node.func.value,node.func.ctx,node,node.func)
-            # if isinstance(type(node), ast.Attribute):
-            #     # matched.append(node.func.attr)
-            #     print("___taunt___", node.target, node.func.value,node.func.ctx,node.attr)
-            elif isinstance(node.func, ast.Name):
+    #由此处观察整个ast的结构
+    # print(astor.dump_tree(gold_ast_tree))
+    n = 0
+    for node in ast.walk(gold_ast_tree):
+        # print(n)
+        # n =n+1
+        # print(type(node))
+        if type(node) is ast.ClassDef:matched.append(node.name)
+        if type(node) is ast.FunctionDef:
+            matched.append(node.name)
+            # print("FunctionDef", node.name)
+        if type(node) is ast.Call:
+            # print("func",node.func)
+            if type(node.func) is ast.Name:
                 matched.append(node.func.id)
-                # print("__name__",type(node.func),node.func.id)
-            elif isinstance(node.func, ast.Call):
-                matched.append(node.func.func.id)
-            else:
-                print("call",type(node.func),node.func)
-            self.generic_visit(node)
+                # print("Call", node.func.id)
+            if type(node.func) is ast.Attribute:
+                matched.append(node.func.attr)
+                # print("Call", node.func.id)
+        if type(node) is ast.keyword:
+            # print("keywords",node.arg)
+            matched.append(node.arg)
+            # print("value", node.value)
+            # if type(node.value) is ast.Attribute:
+            #     # matched.append(node.attr)
+            #     print("Attribute", node.value.attr)
+        # if type(node) is ast.Attribute:
+        #     if type(node.value) is ast.Name:
+        #         print("Name",node.value.id)
+        #     tmp_node = node
+        #     while type(tmp_node) is ast.Attribute:
+        #         # matched.append(tmp_node.attr)
+        #         print("Attribute", tmp_node.attr)
+        #         tmp_node = tmp_node.value
 
-    visitor = CodeVisitor()
-    visitor.visit_Assign(gold_ast_tree)
-    if '__init__' in matched:
+    while '__init__' in matched:
         matched.remove('__init__')
     while 'super' in matched:
         matched.remove('super')
     matched.append('API_END')
     # print("matched",matched)
     return matched
+
+# def get_matched_api(data):
+#     # print(data.replace('§','\n'))
+#     matched = []
+#     gold_ast_tree = ast.parse(data).body[0]
+#     # 这个方法当前不太好用，主要是由于同时存在visit_xxx时，调用该函数实例.visit只会调用第一个visit_xxx
+#     class CodeVisitor(ast.NodeVisitor):
+#         #两个方法不是完全对应的，上面的walk好像更完全，下面的node能访问到（）前的方法
+#         def visit_ClassDef(self, node):
+#             if isinstance(node,ast.ClassDef):
+#                 matched.append(node.name)
+#                 # print("hahha",node.name)
+#         def visit_Assign(self, node):
+#             # print("222",node)
+#             if isinstance(node,ast.Assign):
+#                 matched.append(node.name)
+#                 # print("hahha",node.name)
+#         def visit_Call(self, node):
+#             if isinstance(node.func, ast.Attribute):
+#                 matched.append(node.func.attr)
+#                 # print("___attribute___", node.func.attr, node.func.value,node.func.ctx,node,node.func)
+#             # if isinstance(type(node), ast.Attribute):
+#             #     # matched.append(node.func.attr)
+#             #     print("___taunt___", node.target, node.func.value,node.func.ctx,node.attr)
+#             elif isinstance(node.func, ast.Name):
+#                 matched.append(node.func.id)
+#                 # print("__name__",type(node.func),node.func.id)
+#             elif isinstance(node.func, ast.Call):
+#                 matched.append(node.func.func.id)
+#             else:
+#                 print("call",type(node.func),node.func)
+#             self.generic_visit(node)
+#
+#     visitor = CodeVisitor()
+#     visitor.visit_Assign(gold_ast_tree)
+#     if '__init__' in matched:
+#         matched.remove('__init__')
+#     while 'super' in matched:
+#         matched.remove('super')
+#     matched.append('API_END')
+#     # print("matched",matched)
+#     return matched
 
 def get_matched_name(data):
     matched = []
@@ -530,7 +530,7 @@ class HS(object):
     @staticmethod
     def process_hs_dataset():
         vocab_freq_cutoff = 3  # TODO: found the best cutoff threshold
-        path = '../../data/hs_big/'
+        path = '../../data/hs_big_1/'
         annot_file = path + 'hs.in'
         code_file = path + 'hs.out'
         mod = "hard"

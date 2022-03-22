@@ -4,7 +4,7 @@ set -e
 seed=0
 # mined_num=$1
 mod='hard' #hard origin #sg
-data_type="hs_big_match"
+data_type="hs_big_1"
 freq=3
 vocab="data/${data_type}/vocab_${mod}.freq${freq}.bin"
 train_file="data/${data_type}/train_${mod}.bin"
@@ -19,7 +19,7 @@ type_embed_size=64
 lr=0.0005
 lr_decay=0.5
 batch_size=10
-max_epoch=400
+max_epoch=100
 beam_size=15
 lstm='lstm'  # attention（rat） parent_feed lstm（transforemr）
 lr_decay_after_epoch=15

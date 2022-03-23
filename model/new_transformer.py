@@ -92,10 +92,12 @@ class ratAttSublayer(nn.Module):
     def forward(self,query,key,value,mask,relation):
         batch_size = query.shape[0]
         Q,K,V = [l(x).reshape(batch_size,-1,self.heads,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]
+        relation = relation.unsqueeze(1)
         scores = torch.matmul(Q, K.transpose(-1,-2)) + torch.matmul(Q, relation)
         scores = scores / torch.sqrt(self.dk)
-        mask = mask.unsqueeze(1).repeat(1,self.heads, 1,1).bool()
-        scores = scores.masked_fill_(mask,-1e9)
+        mask = mask.unsqueeze(1).repeat(1,self.heads, 1,1)
+        #给true的地方赋值-1e9
+        scores = scores.masked_fill_(mask==0,-1e9)
         scores = torch.softmax(scores, dim=-1)
         att = torch.matmul(scores,V).transpose(2,1) + torch.matmul(scores, relation)
         att = att.reshape(batch_size, -1, self.heads*self.dk)

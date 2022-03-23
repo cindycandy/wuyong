@@ -167,11 +167,9 @@ class Parser(nn.Module):
         #为新的attention服务
         self.dk = 128
         self.d_ff = 256
-        self.Norm = nn.LayerNorm(args.action_embed_size)
-        self.src_att_linear = nn.Linear(args.action_embed_size, args.num_heads*self.dk)
         import model.new_transformer as t
         #这里只设置两层layer，之后的第二层layer添加新的注意
-        self.new_att_trans = t.Transformer(args.action_embed_size,self.dk,args.num_heads,self.d_ff,2,0.5)
+        self.new_att_trans = t.Encoder(args.action_embed_size,self.dk,args.num_heads,self.d_ff,2,0.5)
 
         if args.no_query_vec_to_action_map:
             # if there is no additional linear layer between the attentional vector (i.e., the query vector)
@@ -214,40 +212,28 @@ class Parser(nn.Module):
         else:
             self.new_long_tensor = torch.LongTensor
             self.new_tensor = torch.FloatTensor
-
-    def update_with_relation(self, src_enc, relation=None,lens=None):
-        src_enc = src_enc.transpose(0,1)
-        # print("\nsrc enc shape",src_enc.shape)
-        if relation[0] is None or relation is None:
-            relation_t = None
-            enc_new = self.encoder_lstm(src_enc, relation_t, mask=None)
-        else:
-            relation_t = self.new_long_tensor(relation)
-            # print("lens",lens,relation_t.shape)
-            atten_mask = self.get_attn_mask(lens)
-            #这里基本确定要用mask，因此不再作为对比点
-            enc_new = self.encoder_lstm(src_enc, relation_t, mask=atten_mask)
-        # print("\nafter update enc shape",enc_new.shape)
-        # src_enc_new = enc_new[:, :]
-        return enc_new
+    #
+    # def update_with_relation(self, src_enc, relation=None,lens=None):
+    #     src_enc = src_enc.transpose(0,1)
+    #     # print("\nsrc enc shape",src_enc.shape)
+    #     if relation[0] is None or relation is None:
+    #         relation_t = None
+    #         enc_new = self.encoder_lstm(src_enc, relation_t, mask=None)
+    #     else:
+    #         relation_t = self.new_long_tensor(relation)
+    #         # print("lens",lens,relation_t.shape)
+    #         atten_mask = self.get_attn_mask(lens)
+    #         #这里基本确定要用mask，因此不再作为对比点
+    #         enc_new = self.encoder_lstm(src_enc, relation_t, mask=atten_mask)
+    #     return enc_new
 
     def get_attn_mask(self,seq_lengths):
-        # Given seq_lengths like [3, 1, 2], this will produce
-        # [[[1, 1, 1],
-        #   [1, 1, 1],
-        #   [1, 1, 1]],
-        #  [[1, 0, 0],
-        #   [0, 0, 0],
-        #   [0, 0, 0]],
-        #  [[1, 1, 0],
-        #   [1, 1, 0],
-        #   [0, 0, 0]]]
         # int(max(...)) so that it has type 'int instead of numpy.int64
         max_length, batch_size = int(max(seq_lengths)), len(seq_lengths)
-        attn_mask = torch.LongTensor(batch_size, max_length, max_length).fill_(0)
+        attn_mask = self.new_tensor(batch_size, max_length, max_length).fill_(0)
         for batch_idx, seq_length in enumerate(seq_lengths):
             attn_mask[batch_idx, :seq_length, :seq_length] = 1
-        return attn_mask.cuda()
+        return attn_mask
 
     def display_attention(self,candidate, translation, attention, path):
         fig = plt.figure(figsize=(10, 10))
@@ -272,8 +258,7 @@ class Parser(nn.Module):
         # standard_heads = torch.tensor([4,4,3,3,2,2,1,0])
         # data_flow_heads = self.args.num_heads - standard_heads
         relation = self.new_tensor(relation)
-        mask = [[0 if t<i else 1 for t in range(max(lens))]for i in lens]
-        mask = self.new_tensor(mask)
+        mask = self.get_attn_mask(lens)
         result,atts = self.new_att_trans(src,mask,relation)
         return result,atts
 

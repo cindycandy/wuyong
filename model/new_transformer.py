@@ -13,9 +13,6 @@ class Encoder(nn.Module):
         self.encoder = torch.nn.ModuleList([EncoderLayer(d_model, dk, heads,alpha) for _ in range(nx)])
 
     def forward(self,input,mask,relation):
-        # print(mask.shape)
-        tmp_size = mask.shape[-1]
-        mask = mask.unsqueeze(1).repeat(1,tmp_size,1)
         enc_self_attns = []
         for encoder_layer in self.encoder:
             input,atts = encoder_layer(input,mask,relation)
@@ -27,13 +24,16 @@ class EncoderLayer(nn.Module):
     def __init__(self,d_model,dk,heads,alpha):
         super(EncoderLayer, self).__init__()
         self.attLayer = AttSubLayer(d_model,dk,heads)
+        self.attLayerv2 = AttSubLayerv2(d_model,dk,heads)
+        self.ratLayer = ratAttSublayer(d_model,dk,heads)
         self.heads_1 = 4
         self.heads_2 = 0
         self.dataflowLayer = adjAttSubLayer(d_model,dk,self.heads_1,self.heads_2,alpha)
         # self.feedLayer = FeedSubLayer(d_ff,d_model)
     def forward(self,input,mask,relation):
-        # att_output,att_matrix = self.attLayer(input,input,input,mask)
-        att_output, att_matrix = self.attLayer(input, input, input, mask, relation)
+        # att_output,att_matrix = self.adjAttSubLayer(input,input,input,mask,relation)
+        # att_output, att_matrix = self.attLayer(input, input, input, mask)
+        att_output, att_matrix = self.attLayerv2(input, input, input, mask,relation)
         # output = self.feedLayer(input)
         return att_output,att_matrix
 
@@ -58,6 +58,28 @@ class AttSubLayer(nn.Module):
         att = self.fc(att)
         return self.norm(att + query),scores
 
+class AttSubLayerv2(nn.Module):
+    def __init__(self,d_model,dk,heads):
+        super(AttSubLayerv2, self).__init__()
+        self.dk = torch.tensor(dk)
+        self.heads = heads
+        self.d_model = d_model
+        self.linears = torch.nn.ModuleList([torch.nn.Linear(d_model,dk*heads,bias=False) for _ in range(3)])
+        self.fc = torch.nn.Linear(dk * heads, d_model)
+        self.norm = torch.nn.LayerNorm(self.d_model)
+        self.dropout = torch.nn.Dropout(0.1)
+    def forward(self,query,key,value,mask,relation):
+        batch_size = query.shape[0]
+        Q,K,V = [l(x).reshape(batch_size,-1,self.heads,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]
+        relation = relation.unsqueeze(1)
+        scores = torch.matmul(torch.matmul(Q,K.transpose(-1,-2)),relation) / torch.sqrt(self.dk)
+        mask = mask.unsqueeze(1).repeat(1,self.heads, 1,1).bool()
+        scores.masked_fill_(mask,-1e9)
+        scores = self.dropout(torch.softmax(scores, dim=-1))
+        att = torch.matmul(scores,V).transpose(2,1).reshape(batch_size, -1, self.heads*self.dk)
+        att = self.fc(att)
+        return self.norm(att + query),scores
+
 class ratAttSublayer(nn.Module):
     def __init__(self,d_model,dk,heads):
         super(ratAttSublayer, self).__init__()
@@ -68,7 +90,6 @@ class ratAttSublayer(nn.Module):
         self.fc = torch.nn.Linear(dk * heads, d_model)
         self.norm = torch.nn.LayerNorm(self.d_model)
     def forward(self,query,key,value,mask,relation):
-        backup = query
         batch_size = query.shape[0]
         Q,K,V = [l(x).reshape(batch_size,-1,self.heads,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]
         scores = torch.matmul(Q, K.transpose(-1,-2)) + torch.matmul(Q, relation)
@@ -90,25 +111,15 @@ class adjAttSubLayer(nn.Module):
         self.heads = heads_1+heads_2
         self.alpha = alpha
         self.d_model = d_model
-        self.Q1_matrix = torch.nn.Linear(d_model,dk*heads_1,bias=False)
-        self.K1_matrix = torch.nn.Linear(d_model,dk*heads_1,bias=False)
-        self.V1_matrix = torch.nn.Linear(d_model,dk*heads_1,bias=False)
-
-        self.Q2_matrix = torch.nn.Linear(d_model, dk * heads_2, bias=False)
-        self.K2_matrix = torch.nn.Linear(d_model, dk * heads_2, bias=False)
-        self.V2_matrix = torch.nn.Linear(d_model, dk * heads_2, bias=False)
+        self.linears_1 = torch.nn.ModuleList([torch.nn.Linear(d_model,dk*heads_1,bias=False) for _ in range(3)])
+        self.linears_2 = torch.nn.ModuleList([torch.nn.Linear(d_model,dk*heads_2,bias=False) for _ in range(3)])
         self.fc = torch.nn.Linear(dk * (self.heads), d_model)
         self.norm = torch.nn.LayerNorm(self.d_model)
     def forward(self,query,key,value,mask,relation):
         backup = query
         batch_size = query.shape[0]
-        Q1 = self.Q1_matrix(query).reshape(batch_size,-1,self.heads_1,self.dk).transpose(2,1)
-        K1 = self.K1_matrix(key).reshape(batch_size,-1,self.heads_1,self.dk).transpose(2,1)
-        V1 = self.V1_matrix(value).reshape(batch_size,-1,self.heads_1,self.dk).transpose(2,1)
-
-        # Q2 = self.Q1_matrix(query).reshape(batch_size, -1, self.heads_2, self.dk).transpose(2, 1)
-        # K2 = self.K1_matrix(key).reshape(batch_size, -1, self.heads_2, self.dk).transpose(2, 1)
-        # V2 = self.V1_matrix(value).reshape(batch_size, -1, self.heads_2, self.dk).transpose(2, 1)
+        Q1,K1,V1 = [l(x).reshape(batch_size,-1,self.heads_1,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]
+        Q2,K2,V2 = [l(x).reshape(batch_size,-1,self.heads_2,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]
 
         #relation的维度肯定和Q*K的不一致，因为后者有heads作为第二维度
         relation = relation.unsqueeze(1).repeat(1, self.heads_1, 1,1)

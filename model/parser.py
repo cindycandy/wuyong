@@ -50,7 +50,7 @@ class Parser(nn.Module):
         # source token embedding
         self.src_embed = nn.Embedding(len(vocab.source), args.embed_size)
 
-        # embedding table of ASDL production rules (constructors), one for each ApplyConstructor action,
+        # embedding table of ASDL production rules (constructors), one for each   ApplyConstructor action,
         # the last entry is the embedding for Reduce action
         self.production_embed = nn.Embedding(len(transition_system.grammar) + 1, args.action_embed_size)
 
@@ -105,22 +105,22 @@ class Parser(nn.Module):
 
             self.decoder_lstm = ParentFeedingLSTMCell(input_dim, args.hidden_size)
 
-        elif args.lstm == "attention":
-            self.encoder_lstm = transformer.Encoder(
-            lambda: transformer.EncoderLayer(
-                self.args.hidden_size,
-                transformer.MultiHeadedAttentionWithRelations(
-                    self.args.num_heads,
-                    self.args.hidden_size,
-                    self.args.dropout),
-                transformer.PositionwiseFeedForward(
-                    self.args.hidden_size,
-                    self.args.hidden_size * 4,
-                    self.args.dropout),
-                self.relation_ids,
-                self.args.dropout),
-            self.args.hidden_size,
-            self.args.num_layers)
+        # elif args.lstm == "attention":
+        #     self.encoder_lstm = transformer.Encoder(
+        #     lambda: transformer.EncoderLayer(
+        #         self.args.hidden_size,
+        #         transformer.MultiHeadedAttentionWithRelations(
+        #             self.args.num_heads,
+        #             self.args.hidden_size,
+        #             self.args.dropout),
+        #         transformer.PositionwiseFeedForward(
+        #             self.args.hidden_size,
+        #             self.args.hidden_size * 4,
+        #             self.args.dropout),
+        #         self.relation_ids,
+        #         self.args.dropout),
+        #     self.args.hidden_size,
+        #     self.args.num_layers)
 
             input_dim = args.action_embed_size  # previous action
             # frontier info
@@ -165,11 +165,12 @@ class Parser(nn.Module):
         self.tgt_token_readout_b = nn.Parameter(torch.FloatTensor(len(vocab.primitive)).zero_())
 
         #为新的attention服务
-        self.dk = 128
+        self.dk = 32
         self.d_ff = 256
         import model.new_transformer as t
         #这里只设置两层layer，之后的第二层layer添加新的注意
-        self.new_att_trans = t.Encoder(args.action_embed_size,self.dk,args.num_heads,self.d_ff,2,0.5)
+        #heads=4，dk=128，hidden_size = 128
+        self.new_att_trans = t.Encoder(args.hidden_size,self.dk,args.num_heads,self.d_ff,2,0.5)
 
         if args.no_query_vec_to_action_map:
             # if there is no additional linear layer between the attentional vector (i.e., the query vector)
@@ -283,21 +284,22 @@ class Parser(nn.Module):
             if self.training and self.args.word_dropout:
                 mask = Variable(self.new_tensor(src_tokens.size()).fill_(1. - self.args.word_dropout).bernoulli().long())
                 src_tokens = src_tokens * mask + (1 - mask) * self.vocab.source.unk_id
-            # print("the var shape:",src_tokens.shape)
-            src_token_embed = self.src_embed(src_tokens)
 
-            # print("the shape after the emb:", src_token_embed.shape)
+            # (batch_size, tgt_query_len,emb_size)
+            src_token_embed = self.src_embed(src_tokens)
+            #pack_padded_sequence 的目的是在lstm中，减少同一batch内不同长度在喂入时带来的影响
             src_token_embed = pack_padded_sequence(src_token_embed, src_sents_len)
+            # src_encodings: (batch_size, tgt_query_len, hidden_size),利用了bi-lstm
             src_encodings, (last_state, last_cell) = self.encoder_lstm(src_token_embed)
+            #恢复上面的pack_padded_sequence
             src_encodings, _ = pad_packed_sequence(src_encodings)
             src_encodings = src_encodings.permute(1, 0, 2)
             #利用rat的attention更新
             # src_encodings = self.update_with_relation(src_encodings.data, relation,src_sents_len)
-            #利用dataflow的方式更新
+            #利用自己写的方式更新
             src_encodings,atts = self.new_relation_update(src_encodings.data, relation,src_sents_len)
             # print("last state",src_tokens.transpose(0,1)[0],atts[0][0][0].shape,src_sents_len)
             # self.display_attention(src_tokens.transpose(0,1)[0].tolist(),src_tokens.transpose(0,1)[0].tolist(),atts[0][0][0],"m.jpg")
-            # src_encodings: (batch_size, tgt_query_len, hidden_size)
             last_state = torch.cat([last_state[0], last_state[1]], 1)
             last_cell = torch.cat([last_cell[0], last_cell[1]], 1)
             # print(src_encodings.shape, "return one")

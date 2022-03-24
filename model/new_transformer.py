@@ -1,23 +1,34 @@
 import torch.nn as nn
+import torch.nn.functional as F
 import torch
 import os
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
+class PositionwiseFeedForward(nn.Module):
+    "Implements FFN equation."
 
+    def __init__(self, d_model, d_ff, dropout=0.1):
+        super(PositionwiseFeedForward, self).__init__()
+        self.w_1 = nn.Linear(d_model, d_ff)
+        self.w_2 = nn.Linear(d_ff, d_model)
+        self.dropout = nn.Dropout(dropout)
+
+    def forward(self, x):
+        return self.w_2(self.dropout(torch.nn.functional.relu(self.w_1(x))))
 
 class Encoder(nn.Module):
     def __init__(self,d_model,dk,heads,d_ff,nx,alpha):
         super(Encoder, self).__init__()
         #重复模型块用nn.ModuleList，参数是一个[x for i in range(t)],但是没有实现forward功能；Sequential要确保输入输入维度匹配，实现了forward功能
         # self.encoder = torch.nn.ModuleList([EncoderLayer(d_model,dk,heads_1+heads_2,d_ff) for _ in range(nx)])
-        self.encoder = torch.nn.ModuleList([EncoderLayer(d_model, dk, heads,alpha) for _ in range(nx)])
-
+        self.layers = torch.nn.ModuleList([EncoderLayer(d_model, dk, heads,alpha) for _ in range(nx)])
+        self.norm = nn.LayerNorm(d_model)
     def forward(self,input,mask,relation):
         enc_self_attns = []
-        for encoder_layer in self.encoder:
+        for encoder_layer in self.layers:
             input,atts = encoder_layer(input,mask,relation)
             enc_self_attns.append(atts)
-        return input, enc_self_attns
+        return self.norm(input), enc_self_attns
 
 
 class EncoderLayer(nn.Module):
@@ -26,16 +37,24 @@ class EncoderLayer(nn.Module):
         self.attLayer = AttSubLayer(d_model,dk,heads)
         self.attLayerv2 = AttSubLayerv2(d_model,dk,heads)
         self.ratLayer = ratAttSublayer(d_model,dk,heads)
+        self.feedLayer = PositionwiseFeedForward(d_model, 4*d_model)
+        self.norm = nn.LayerNorm(d_model)
+        self.dropout = nn.Dropout(0.1)
         self.heads_1 = 4
         self.heads_2 = 0
         self.dataflowLayer = adjAttSubLayer(d_model,dk,self.heads_1,self.heads_2,alpha)
-        # self.feedLayer = FeedSubLayer(d_ff,d_model)
     def forward(self,input,mask,relation):
         # att_output,att_matrix = self.adjAttSubLayer(input,input,input,mask,relation)
         # att_output, att_matrix = self.attLayer(input, input, input, mask)
+        backup = input
+        #这里的两个norm操作是仿照annotated transformer，就和relation机制一样
+        input = self.norm(input)
         att_output, att_matrix = self.attLayerv2(input, input, input, mask,relation)
-        # output = self.feedLayer(input)
-        return att_output,att_matrix
+        att_output = backup + self.dropout(att_output)
+        feed_input = self.norm(att_output)
+        output = self.feedLayer(feed_input)
+        output = att_output + self.dropout(output)
+        return output,att_matrix
 
 class AttSubLayer(nn.Module):
     def __init__(self,d_model,dk,heads):
@@ -88,7 +107,6 @@ class ratAttSublayer(nn.Module):
         self.d_model = d_model
         self.linears = torch.nn.ModuleList([torch.nn.Linear(d_model,dk*heads,bias=False) for _ in range(3)])
         self.fc = torch.nn.Linear(dk * heads, d_model)
-        self.norm = torch.nn.LayerNorm(self.d_model)
     def forward(self,query,key,value,mask,relation):
         batch_size = query.shape[0]
         Q,K,V = [l(x).reshape(batch_size,-1,self.heads,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]
@@ -102,7 +120,7 @@ class ratAttSublayer(nn.Module):
         att = torch.matmul(scores,V).transpose(2,1) + torch.matmul(scores, relation)
         att = att.reshape(batch_size, -1, self.heads*self.dk)
         att = self.fc(att)
-        return self.norm(att),scores
+        return att, scores
 
 class adjAttSubLayer(nn.Module):
     def __init__(self,d_model,dk,heads_1,heads_2,alpha):

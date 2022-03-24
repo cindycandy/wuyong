@@ -81,9 +81,9 @@ def get_link(nl,code):
         for j,c in enumerate(code):
             q=q.lower()
             c=c.lower()
-            # sim_q = ""
-            # if q == "opponent":
-            #     sim_q = "enemy"
+            sim_q = ""
+            if q == "opponent":
+                sim_q = "enemy"
             # print(q,c)
             if len(q)<3:
                 continue
@@ -94,11 +94,11 @@ def get_link(nl,code):
                 # print("look at the link",q,c)
                 relation[i,j] = 2
                 # print(q,c)
-            # elif sim_q!= "" and sim_q in c:
-            #     # print("look at the sim link", q, c)
-            #     relation[i, j] = 2
+            elif sim_q!= "" and sim_q in c:
+                # print("look at the sim link", q, c)
+                relation[i, j] = 3
             elif c in q:
-                relation[i,j] = 1
+                relation[i,j] = 4
                 # print("code in ques",q,c)
     # print(relation)
     if np.sum(relation) < 3:
@@ -118,26 +118,31 @@ def compute_relation(relation):
         print("!!!!!!!!!value is zero")
     return new_relations
 
-def fix_relation(relation):
-    w, h = relation.shape
-    relation_len = w + h
-    fixed_relations = np.zeros((relation_len, relation_len), dtype=np.int64)
-    right_relation = relation + 5
-    fixed_relations[0:w, w:w + h] = right_relation
-    left_relation = relation + 8
-    fixed_relations[w:w + h, 0:w] = left_relation.transpose()
-    for i in range(w):
-        fixed_relations[i,i] = 2
-        if i > 0:
-            fixed_relations[i, i - 1] = 1
-        if i < w-1:
-            fixed_relations[i, i + 1] = 3
-            for j in range(i+2,w):
-                fixed_relations[i,j] = 4
-    for i in range(w,w+h):
-        for j in range(w,w+h):
-            if i==j:fixed_relations[i][j] = 11
-            else:fixed_relations[i,j] = 12
+def fixRelationWithPosition(relation,q_len):
+    t_len = len(relation)
+    #api对应api的关系修改后，11的值要变为最下面那个循环里的最大值
+    fixed_relations = [[j+11 if j!=0 else 0 for j in i] for i in relation]
+    #query对应api的默认关系为5
+    fixed_relations[0:q_len,q_len:t_len] = [[5 if j==0 else j for j in i] for i in fixed_relations[0:q_len,q_len:t_len]]
+    #api对应query的默认关系为6
+    fixed_relations[q_len:t_len,0:q_len] = [[6 if j==0 else j for j in i] for i in fixed_relations[q_len:t_len,0:q_len]]
+    #query和query的关系，之后不再修改
+    for i in range(q_len):
+        for j in range(q_len):
+            if i==j:fixed_relations[i][j] = 2
+            elif i-j==1:fixed_relations[i][j] = 1
+            elif i-j >= 2:fixed_relations[i][j] = 0
+            elif j-i == 1:fixed_relations[i][j] = 3
+            elif j-i >= 2:fixed_relations[i][j] = 4
+    #api和api的关系，这里只添加距离信息,否则加回if判断
+    for i in range(q_len,t_len):
+        for j in range(q_len,t_len):
+            # if fixed_relations[i][j]!=0:
+            if i==j:fixed_relations[i][j] = 9
+            elif i-j==1:fixed_relations[i][j] = 8
+            elif i-j >= 2:fixed_relations[i][j] = 7
+            elif j-i == 1:fixed_relations[i][j] = 10
+            elif j-i >= 2:fixed_relations[i][j] = 11
     return fixed_relations
 
 
@@ -426,8 +431,9 @@ class HS(object):
             assert src_from_hyp == gold_source
 
             related_code = []
-            relation_s = None
-            fixed_relation = None
+            relation = None
+            position_relation = None
+            dataflow_relation = None
             if mod == 'origin':
                 pass
 
@@ -435,9 +441,10 @@ class HS(object):
                 matched = get_matched_api(tgt_code)
                 matched_name = get_matched_name(tgt_code)
                 related_code = matched + matched_name
-                relation = get_link(src_query_tokens, related_code)
-                relation_s = compute_relation(relation)
-                fixed_relation = fix_relation(relation)
+                orig_relation = get_link(src_query_tokens, related_code)
+                relation = compute_relation(orig_relation)
+                dataflow_relation = (relation!=0).astype(int)
+                position_relation = fixRelationWithPosition(relation,len(src_query_tokens))
 
             elif mod == "sg":
                 pass
@@ -452,8 +459,8 @@ class HS(object):
                                     'raw_code': tgt_code,
                                     'str_map': str_map,
                                     'related_code': related_code,
-                                    'relation': relation_s,
-                                    'fixed_relation': fixed_relation})
+                                    'relation': dataflow_relation,
+                                    'fixed_relation': position_relation})
 
             # print('first pass, processed %d' % idx, file=sys.stderr)
 

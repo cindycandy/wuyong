@@ -105,8 +105,12 @@ class ratAttSublayer(nn.Module):
         self.dk = torch.tensor(dk)
         self.heads = heads
         self.d_model = d_model
+        self.num_relation_kinds = 16
         self.linears = torch.nn.ModuleList([torch.nn.Linear(d_model,dk*heads,bias=False) for _ in range(3)])
         self.fc = torch.nn.Linear(dk * heads, d_model)
+        self.relation_k_emb = nn.Embedding(self.num_relation_kinds, self.self_attn.d_k)
+        self.relation_v_emb = nn.Embedding(self.num_relation_kinds, self.self_attn.d_k)
+
     def forward(self,query,key,value,mask,relation):
         batch_size = query.shape[0]
         Q,K,V = [l(x).reshape(batch_size,-1,self.heads,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]

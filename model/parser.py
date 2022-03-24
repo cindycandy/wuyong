@@ -433,7 +433,9 @@ class Parser(nn.Module):
         # (last_state, last_cell, dec_init_vec): (batch_size, hidden_size)
         # print("it is the score method, is used before the encode method")
         #2222
-        src_encodings, (last_state, last_cell) = self.encode_(batch,unchanged=True,parse=False)
+        src_encodings, (last_state, last_cell), _ = self.encode(batch.src_sents_var, batch.src_sents_len,
+                                                                relation=batch.position_relation_var)
+        # src_encodings, (last_state, last_cell) = self.encode_(batch,unchanged=True,parse=False)
         # if self.args.lstm == "attention":
         #     # print("*****************", batch.relation)
         #     if batch.relation[0] is None:

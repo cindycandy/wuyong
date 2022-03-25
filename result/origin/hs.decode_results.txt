@@ -1,0 +1,72 @@
+------------------------------------------------------------
+example_id: 5
+intent: 
+Arcane Missiles NAME_END -1 ATK_END -1 DEF_END 1 COST_END -1 DUR_END Spell TYPE_END Mage PLAYER_CLS_END NIL RACE_END Free RARITY_END Deal $ 3 damage randomly split among all enemies .
+canonicalized reference: 
+class ArcaneMissiles(SpellCard):
+
+    def __init__(self):
+        super().__init__('Arcane Missiles', 1, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for i in range(0, player.effective_spell_damage(3)):
+            targets = copy.copy(game.other_player.minions)
+            targets.append(game.other_player.hero)
+            target = game.random_choice(targets)
+            target.damage(1, self)
+canonicalized prediction: 
+self().self.self
+reference code for bleu calculation: 
+class ArcaneMissiles(SpellCard):
+
+    def __init__(self):
+        super().__init__('Arcane Missiles', 1, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for i in range(0, player.effective_spell_damage(3)):
+            targets = copy.copy(game.other_player.minions)
+            targets.append(game.other_player.hero)
+            target = game.random_choice(targets)
+            target.damage(1, self)
+predicted code for bleu calculation: 
+self().self.self
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 6
+intent: 
+Arcane Shot NAME_END -1 ATK_END -1 DEF_END 1 COST_END -1 DUR_END Spell TYPE_END Hunter PLAYER_CLS_END NIL RACE_END Free RARITY_END Deal $ 2 damage .
+canonicalized reference: 
+class ArcaneShot(SpellCard):
+
+    def __init__(self):
+        super().__init__('Arcane Shot', 1, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.FREE, target_func=hearthbreaker.targeting.
+            find_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(2), self)
+canonicalized prediction: 
+self.self.self.self.self.self.self
+reference code for bleu calculation: 
+class ArcaneShot(SpellCard):
+
+    def __init__(self):
+        super().__init__('Arcane Shot', 1, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.FREE, target_func=hearthbreaker.targeting.
+            find_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(2), self)
+predicted code for bleu calculation: 
+self.self.self.self.self.self.self
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------

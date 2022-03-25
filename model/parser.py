@@ -167,10 +167,11 @@ class Parser(nn.Module):
         #为新的attention服务
         self.dk = 32
         self.d_ff = 256
+        self.att_mode = args.att_mode
         import model.new_transformer as t
         #这里只设置两层layer，之后的第二层layer添加新的注意
         #heads=4，dk=128，hidden_size = 128
-        self.new_att_trans = t.Encoder(args.hidden_size,self.dk,args.num_heads,self.d_ff,2,0.5)
+        self.new_att_trans = t.Encoder(args.hidden_size,self.dk,args.num_heads,self.d_ff,2,0.5,mode=self.att_mode)
 
         if args.no_query_vec_to_action_map:
             # if there is no additional linear layer between the attentional vector (i.e., the query vector)
@@ -258,7 +259,7 @@ class Parser(nn.Module):
         #这里采用直接指定的分布，后续可以思考一个公式
         # standard_heads = torch.tensor([4,4,3,3,2,2,1,0])
         # data_flow_heads = self.args.num_heads - standard_heads
-        relation = self.new_tensor(relation)
+        # relation = self.new_long_tensor(relation)
         mask = self.get_attn_mask(lens)
         result,atts = self.new_att_trans(src,mask,relation)
         return result,atts
@@ -297,6 +298,10 @@ class Parser(nn.Module):
             #利用rat的attention更新
             # src_encodings = self.update_with_relation(src_encodings.data, relation,src_sents_len)
             #利用自己写的方式更新
+            if self.args.att_mode == "rat":
+                relation = self.new_long_tensor(relation)
+            elif self.args.att_mode == "plus":
+                relation = self.new_tensor(relation)
             src_encodings,atts = self.new_relation_update(src_encodings.data, relation,src_sents_len)
             # print("last state",src_tokens.transpose(0,1)[0],atts[0][0][0].shape,src_sents_len)
             # self.display_attention(src_tokens.transpose(0,1)[0].tolist(),src_tokens.transpose(0,1)[0].tolist(),atts[0][0][0],"m.jpg")
@@ -433,8 +438,12 @@ class Parser(nn.Module):
         # (last_state, last_cell, dec_init_vec): (batch_size, hidden_size)
         # print("it is the score method, is used before the encode method")
         #2222
-        src_encodings, (last_state, last_cell), _ = self.encode(batch.src_sents_var, batch.src_sents_len,
-                                                                relation=batch.position_relation_var)
+        if self.args.att_mode == "rat:":
+            src_encodings, (last_state, last_cell), _ = self.encode(batch.src_sents_var, batch.src_sents_len,
+                                                            relation=batch.position_relation_var)
+        elif self.args.att_mode == "plus":
+            src_encodings, (last_state, last_cell), _ = self.encode(batch.src_sents_var, batch.src_sents_len,
+                                                                    relation=batch.relation_var)
         # src_encodings, (last_state, last_cell) = self.encode_(batch,unchanged=True,parse=False)
         # if self.args.lstm == "attention":
         #     # print("*****************", batch.relation)

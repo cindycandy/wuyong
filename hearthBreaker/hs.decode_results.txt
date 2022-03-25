@@ -1,0 +1,3489 @@
+------------------------------------------------------------
+example_id: 533
+intent: 
+Archmage NAME_END 4 ATK_END 7 DEF_END 6 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Spell Damage +1 < /b >
+canonicalized reference: 
+class Archmage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Archmage', 6, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON
+            )
+
+    def create_minion(self, player):
+        return Minion(4, 7, spell_damage=1)
+canonicalized prediction: 
+class Archmage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Archmage', 6, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON
+            )
+
+    def create_minion(self, player):
+        return Minion(4, 7, spell_damage=5)
+reference code for bleu calculation: 
+class Archmage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Archmage', 6, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON
+            )
+
+    def create_minion(self, player):
+        return Minion(4, 7, spell_damage=1)
+predicted code for bleu calculation: 
+class Archmage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Archmage', 6, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON
+            )
+
+    def create_minion(self, player):
+        return Minion(4, 7, spell_damage=5)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 534
+intent: 
+Booty Bay Bodyguard NAME_END 5 ATK_END 4 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Taunt < /b >
+canonicalized reference: 
+class BootyBayBodyguard(MinionCard):
+
+    def __init__(self):
+        super().__init__('Booty Bay Bodyguard', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(5, 4, taunt=True)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Booty Bay Bodyguard', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(5, 4, taunt=True)
+reference code for bleu calculation: 
+class BootyBayBodyguard(MinionCard):
+
+    def __init__(self):
+        super().__init__('Booty Bay Bodyguard', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(5, 4, taunt=True)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Booty Bay Bodyguard', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(5, 4, taunt=True)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 535
+intent: 
+Darkscale Healer NAME_END 4 ATK_END 5 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Battlecry : < /b > Restore 2 Health to all friendly characters .
+canonicalized reference: 
+class DarkscaleHealer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Darkscale Healer', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Heal(2),
+            CharacterSelector()))
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Darkscale Healer', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Heal(2),
+            CharacterSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+reference code for bleu calculation: 
+class DarkscaleHealer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Darkscale Healer', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Heal(2),
+            CharacterSelector()))
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Darkscale Healer', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Heal(2),
+            CharacterSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 536
+intent: 
+Fiery War Axe NAME_END 3 ATK_END -1 DEF_END 2 COST_END 2 DUR_END Weapon TYPE_END Warrior PLAYER_CLS_END NIL RACE_END Free RARITY_END NIL
+canonicalized reference: 
+class FieryWarAxe(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Fiery War Axe', 2, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.FREE)
+
+    def create_weapon(self, player):
+        return Weapon(3, 2)
+canonicalized prediction: 
+class GrimscaleOracle(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Fiery War Axe', 2, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.FREE, False)
+
+    def create_weapon(self, player):
+        return Weapon(3, 2)
+reference code for bleu calculation: 
+class FieryWarAxe(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Fiery War Axe', 2, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.FREE)
+
+    def create_weapon(self, player):
+        return Weapon(3, 2)
+predicted code for bleu calculation: 
+class GrimscaleOracle(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Fiery War Axe', 2, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.FREE, False)
+
+    def create_weapon(self, player):
+        return Weapon(3, 2)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 537
+intent: 
+Frostwolf Warlord NAME_END 4 ATK_END 4 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Battlecry : < /b > Gain +1/+1 for each other friendly minion on the battlefield .
+canonicalized reference: 
+class FrostwolfWarlord(MinionCard):
+
+    def __init__(self):
+        super().__init__('Frostwolf Warlord', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Give([Buff(ChangeAttack
+            (Count(MinionSelector()))), Buff(ChangeHealth(Count(
+            MinionSelector())))]), SelfSelector()))
+
+    def create_minion(self, player):
+        return Minion(4, 4)
+canonicalized prediction: 
+class Frostwolf(MinionCard):
+
+    def __init__(self):
+        super().__init__('Frostwolf Warlord', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Give([Buff(ChangeAttack
+            (1)), Buff(ChangeHealth(3))]), SelfSelector(), GreaterThan(
+            Count(CardSelector(condition=IsType(MINION_TYPE.PIRATE))),
+            value=0)))
+
+    def create_minion(self, player):
+        return Minion(4, 4)
+reference code for bleu calculation: 
+class FrostwolfWarlord(MinionCard):
+
+    def __init__(self):
+        super().__init__('Frostwolf Warlord', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Give([Buff(ChangeAttack
+            (Count(MinionSelector()))), Buff(ChangeHealth(Count(
+            MinionSelector())))]), SelfSelector()))
+
+    def create_minion(self, player):
+        return Minion(4, 4)
+predicted code for bleu calculation: 
+class Frostwolf(MinionCard):
+
+    def __init__(self):
+        super().__init__('Frostwolf Warlord', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Give([Buff(ChangeAttack
+            (1)), Buff(ChangeHealth(3))]), SelfSelector(), GreaterThan(
+            Count(CardSelector(condition=IsType(MINION_TYPE.PIRATE))),
+            value=0)))
+
+    def create_minion(self, player):
+        return Minion(4, 4)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 538
+intent: 
+Hellfire NAME_END -1 ATK_END -1 DEF_END 4 COST_END -1 DUR_END Spell TYPE_END Warlock PLAYER_CLS_END NIL RACE_END Free RARITY_END Deal $ 3 damage to ALL characters .
+canonicalized reference: 
+class Hellfire(SpellCard):
+
+    def __init__(self):
+        super().__init__('Hellfire', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        targets.append(game.other_player.hero)
+        targets.append(game.current_player.hero)
+        for minion in targets:
+            minion.damage(player.effective_spell_damage(3), self)
+canonicalized prediction: 
+class Hellfire(SpellCard):
+
+    def __init__(self):
+        super().__init__('Hellfire', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        for minion in targets:
+            minion.damage(player.effective_spell_damage(3), self)
+reference code for bleu calculation: 
+class Hellfire(SpellCard):
+
+    def __init__(self):
+        super().__init__('Hellfire', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        targets.append(game.other_player.hero)
+        targets.append(game.current_player.hero)
+        for minion in targets:
+            minion.damage(player.effective_spell_damage(3), self)
+predicted code for bleu calculation: 
+class Hellfire(SpellCard):
+
+    def __init__(self):
+        super().__init__('Hellfire', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        for minion in targets:
+            minion.damage(player.effective_spell_damage(3), self)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 539
+intent: 
+Innervate NAME_END -1 ATK_END -1 DEF_END 0 COST_END -1 DUR_END Spell TYPE_END Druid PLAYER_CLS_END NIL RACE_END Free RARITY_END Gain 2 Mana Crystals this turn only .
+canonicalized reference: 
+class Innervate(SpellCard):
+
+    def __init__(self):
+        super().__init__('Innervate', 0, CHARACTER_CLASS.DRUID, CARD_RARITY
+            .FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        if player.mana < 8:
+            player.mana += 2
+        else:
+            player.mana = 10
+canonicalized prediction: 
+class Innervate(SpellCard):
+
+    def __init__(self):
+        super().__init__('Innervate', 0, CHARACTER_CLASS.DRUID, CARD_RARITY
+            .FREE, target_func=hearthbreaker.targeting.
+            find_friendly_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.bounce()
+        self.target.card.add_buff(Buff(Frozen()))
+reference code for bleu calculation: 
+class Innervate(SpellCard):
+
+    def __init__(self):
+        super().__init__('Innervate', 0, CHARACTER_CLASS.DRUID, CARD_RARITY
+            .FREE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        if player.mana < 8:
+            player.mana += 2
+        else:
+            player.mana = 10
+predicted code for bleu calculation: 
+class Innervate(SpellCard):
+
+    def __init__(self):
+        super().__init__('Innervate', 0, CHARACTER_CLASS.DRUID, CARD_RARITY
+            .FREE, target_func=hearthbreaker.targeting.
+            find_friendly_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.bounce()
+        self.target.card.add_buff(Buff(Frozen()))
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 540
+intent: 
+Magma Rager NAME_END 5 ATK_END 1 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Free RARITY_END NIL
+canonicalized reference: 
+class MagmaRager(MinionCard):
+
+    def __init__(self):
+        super().__init__('Magma Rager', 3, CHARACTER_CLASS.ALL, CARD_RARITY
+            .FREE)
+
+    def create_minion(self, player):
+        return Minion(5, 1)
+canonicalized prediction: 
+class Magma(MinionCard):
+
+    def __init__(self):
+        super().__init__('Magma Rager', 3, CHARACTER_CLASS.ALL, CARD_RARITY
+            .FREE)
+
+    def create_minion(self, player):
+        return Minion(5, 1)
+reference code for bleu calculation: 
+class MagmaRager(MinionCard):
+
+    def __init__(self):
+        super().__init__('Magma Rager', 3, CHARACTER_CLASS.ALL, CARD_RARITY
+            .FREE)
+
+    def create_minion(self, player):
+        return Minion(5, 1)
+predicted code for bleu calculation: 
+class Magma(MinionCard):
+
+    def __init__(self):
+        super().__init__('Magma Rager', 3, CHARACTER_CLASS.ALL, CARD_RARITY
+            .FREE)
+
+    def create_minion(self, player):
+        return Minion(5, 1)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 541
+intent: 
+Mortal Coil NAME_END -1 ATK_END -1 DEF_END 1 COST_END -1 DUR_END Spell TYPE_END Warlock PLAYER_CLS_END NIL RACE_END Common RARITY_END Deal $ 1 damage to a minion . If that kills it , draw a card .
+canonicalized reference: 
+class MortalCoil(SpellCard):
+
+    def __init__(self):
+        super().__init__('Mortal Coil', 1, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        if self.target.health <= player.effective_spell_damage(1
+            ) and not self.target.divine_shield:
+            self.target.damage(player.effective_spell_damage(1), self)
+            player.draw()
+        else:
+            self.target.damage(player.effective_spell_damage(1), self)
+canonicalized prediction: 
+class Mortal(SpellCard):
+
+    def __init__(self):
+        super().__init__('Mortal Coil', 1, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(1), self)
+        player.hero.heal(player.effective_heal_power(1), self)
+        player.hero.heal(player.effective_heal_power(1), self)
+reference code for bleu calculation: 
+class MortalCoil(SpellCard):
+
+    def __init__(self):
+        super().__init__('Mortal Coil', 1, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        if self.target.health <= player.effective_spell_damage(1
+            ) and not self.target.divine_shield:
+            self.target.damage(player.effective_spell_damage(1), self)
+            player.draw()
+        else:
+            self.target.damage(player.effective_spell_damage(1), self)
+predicted code for bleu calculation: 
+class Mortal(SpellCard):
+
+    def __init__(self):
+        super().__init__('Mortal Coil', 1, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(1), self)
+        player.hero.heal(player.effective_heal_power(1), self)
+        player.hero.heal(player.effective_heal_power(1), self)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 542
+intent: 
+Polymorph NAME_END -1 ATK_END -1 DEF_END 4 COST_END -1 DUR_END Spell TYPE_END Mage PLAYER_CLS_END NIL RACE_END Free RARITY_END Transform a minion into a 1/1 Sheep .
+canonicalized reference: 
+class Polymorph(SpellCard):
+
+    def __init__(self):
+        super().__init__('Polymorph', 4, CHARACTER_CLASS.MAGE, CARD_RARITY.
+            FREE, target_func=hearthbreaker.targeting.find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        from hearthbreaker.cards.minions.mage import Sheep
+        sheep = Sheep()
+        minion = sheep.create_minion(None)
+        minion.card = sheep
+        self.target.replace(minion)
+canonicalized prediction: 
+class Polymorph(SpellCard):
+
+    def __init__(self):
+        super().__init__('Polymorph', 4, CHARACTER_CLASS.MAGE, CARD_RARITY.
+            FREE, target_func=hearthbreaker.targeting.
+            find_enemy_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.die(self)
+reference code for bleu calculation: 
+class Polymorph(SpellCard):
+
+    def __init__(self):
+        super().__init__('Polymorph', 4, CHARACTER_CLASS.MAGE, CARD_RARITY.
+            FREE, target_func=hearthbreaker.targeting.find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        from hearthbreaker.cards.minions.mage import Sheep
+        sheep = Sheep()
+        minion = sheep.create_minion(None)
+        minion.card = sheep
+        self.target.replace(minion)
+predicted code for bleu calculation: 
+class Polymorph(SpellCard):
+
+    def __init__(self):
+        super().__init__('Polymorph', 4, CHARACTER_CLASS.MAGE, CARD_RARITY.
+            FREE, target_func=hearthbreaker.targeting.
+            find_enemy_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.die(self)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 543
+intent: 
+Searing Totem NAME_END 1 ATK_END 1 DEF_END 1 COST_END -1 DUR_END Minion TYPE_END Shaman PLAYER_CLS_END Totem RACE_END Free RARITY_END NIL
+canonicalized reference: 
+class SearingTotem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Searing Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(1, 1)
+canonicalized prediction: 
+class Searing(MinionCard):
+
+    def __init__(self):
+        super().__init__('Searing Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(1, 1)
+reference code for bleu calculation: 
+class SearingTotem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Searing Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(1, 1)
+predicted code for bleu calculation: 
+class Searing(MinionCard):
+
+    def __init__(self):
+        super().__init__('Searing Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(1, 1)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 544
+intent: 
+Silverback Patriarch NAME_END 1 ATK_END 4 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END Beast RACE_END Common RARITY_END < b > Taunt < /b >
+canonicalized reference: 
+class SilverbackPatriarch(MinionCard):
+
+    def __init__(self):
+        super().__init__('Silverback Patriarch', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(1, 4, taunt=True)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Silverback Patriarch', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(1, 4, taunt=True)
+reference code for bleu calculation: 
+class SilverbackPatriarch(MinionCard):
+
+    def __init__(self):
+        super().__init__('Silverback Patriarch', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(1, 4, taunt=True)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Silverback Patriarch', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(1, 4, taunt=True)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 545
+intent: 
+Stormwind Knight NAME_END 2 ATK_END 5 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Charge < /b >
+canonicalized reference: 
+class StormwindKnight(MinionCard):
+
+    def __init__(self):
+        super().__init__('Stormwind Knight', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 5, charge=True)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Stormwind Knight', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 5, charge=True)
+reference code for bleu calculation: 
+class StormwindKnight(MinionCard):
+
+    def __init__(self):
+        super().__init__('Stormwind Knight', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 5, charge=True)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Stormwind Knight', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 5, charge=True)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 546
+intent: 
+Voodoo Doctor NAME_END 2 ATK_END 1 DEF_END 1 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Free RARITY_END < b > Battlecry : < /b > Restore 2 Health .
+canonicalized reference: 
+class VoodooDoctor(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voodoo Doctor', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.FREE, battlecry=Battlecry(Heal(2),
+            CharacterSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voodoo Doctor', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.FREE, battlecry=Battlecry(Heal(2), HeroSelector()))
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+reference code for bleu calculation: 
+class VoodooDoctor(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voodoo Doctor', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.FREE, battlecry=Battlecry(Heal(2),
+            CharacterSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voodoo Doctor', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.FREE, battlecry=Battlecry(Heal(2), HeroSelector()))
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 547
+intent: 
+Wrath of Air Totem NAME_END 0 ATK_END 2 DEF_END 1 COST_END -1 DUR_END Minion TYPE_END Shaman PLAYER_CLS_END Totem RACE_END Free RARITY_END < b > Spell Damage +1 < /b >
+canonicalized reference: 
+class WrathOfAirTotem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wrath of Air Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(0, 2, spell_damage=1)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wrath of Air Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(0, 2, **[Aura(ChangeAttack(0), TOTEM=True), Aura(
+            ChangeHealth(1), MinionSelector(TOTEM()))])
+reference code for bleu calculation: 
+class WrathOfAirTotem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wrath of Air Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(0, 2, spell_damage=1)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wrath of Air Totem', 1, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.FREE, False, MINION_TYPE.TOTEM)
+
+    def create_minion(self, player):
+        return Minion(0, 2, **[Aura(ChangeAttack(0), TOTEM=True), Aura(
+            ChangeHealth(1), MinionSelector(TOTEM()))])
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 548
+intent: 
+Astral Communion NAME_END -1 ATK_END -1 DEF_END 4 COST_END -1 DUR_END Spell TYPE_END Druid PLAYER_CLS_END NIL RACE_END Epic RARITY_END Gain 10 Mana Crystals . Discard your hand .
+canonicalized reference: 
+class AstralCommunion(SpellCard):
+
+    def __init__(self):
+        super().__init__('Astral Communion', 4, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.EPIC)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for card in player.hand:
+            card.unattach()
+            player.trigger('card_discarded', card)
+        player.hand = []
+        player.max_mana = 10
+        player.mana = 10
+canonicalized prediction: 
+class Astral(SpellCard):
+
+    def __init__(self):
+        super().__init__('Astral Communion', 4, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.EPIC, target_func=hearthbreaker.targeting.
+            find_friendly_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.hand()
+        game.other_player.draw()
+reference code for bleu calculation: 
+class AstralCommunion(SpellCard):
+
+    def __init__(self):
+        super().__init__('Astral Communion', 4, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.EPIC)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for card in player.hand:
+            card.unattach()
+            player.trigger('card_discarded', card)
+        player.hand = []
+        player.max_mana = 10
+        player.mana = 10
+predicted code for bleu calculation: 
+class Astral(SpellCard):
+
+    def __init__(self):
+        super().__init__('Astral Communion', 4, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.EPIC, target_func=hearthbreaker.targeting.
+            find_friendly_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.hand()
+        game.other_player.draw()
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 549
+intent: 
+Annoy-o-Tron NAME_END 1 ATK_END 2 DEF_END 2 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END Mech RACE_END Common RARITY_END < b > Taunt < /b > NL < b > Divine Shield < /b >
+canonicalized reference: 
+class AnnoyoTron(MinionCard):
+
+    def __init__(self):
+        super().__init__('Annoy-o-Tron', 2, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(1, 2, divine_shield=True, taunt=True)
+canonicalized prediction: 
+class Annoy-o-Tron(MinionCard):
+
+    def __init__(self):
+        super().__init__('Annoy-o-Tron', 2, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(1, 2, divine_shield=True, taunt=True)
+reference code for bleu calculation: 
+class AnnoyoTron(MinionCard):
+
+    def __init__(self):
+        super().__init__('Annoy-o-Tron', 2, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(1, 2, divine_shield=True, taunt=True)
+predicted code for bleu calculation: 
+class Annoy-o-Tron(MinionCard):
+
+    def __init__(self):
+        super().__init__('Annoy-o-Tron', 2, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(1, 2, divine_shield=True, taunt=True)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 550
+intent: 
+Burly Rockjaw Trogg NAME_END 3 ATK_END 5 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END Whenever your opponent casts a spell , gain +2 Attack .
+canonicalized reference: 
+class BurlyRockjawTrogg(MinionCard):
+
+    def __init__(self):
+        super().__init__('Burly Rockjaw Trogg', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellCast(player=EnemyPlayer()),
+            ActionTag(Give(ChangeAttack(2)), SelfSelector()))])
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Burly Rockjaw Trogg', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellCast(player=EnemyPlayer()),
+            ActionTag(Give(ChangeAttack(1)), SelfSelector()))])
+reference code for bleu calculation: 
+class BurlyRockjawTrogg(MinionCard):
+
+    def __init__(self):
+        super().__init__('Burly Rockjaw Trogg', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellCast(player=EnemyPlayer()),
+            ActionTag(Give(ChangeAttack(2)), SelfSelector()))])
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Burly Rockjaw Trogg', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellCast(player=EnemyPlayer()),
+            ActionTag(Give(ChangeAttack(1)), SelfSelector()))])
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 551
+intent: 
+Cogmaster 's Wrench NAME_END 1 ATK_END -1 DEF_END 3 COST_END 3 DUR_END Weapon TYPE_END Rogue PLAYER_CLS_END NIL RACE_END Epic RARITY_END Has +2 Attack while you have a Mech .
+canonicalized reference: 
+class CogmastersWrench(WeaponCard):
+
+    def __init__(self):
+        super().__init__("Cogmaster's Wrench", 3, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.EPIC)
+
+    def create_weapon(self, player):
+        return Weapon(1, 3, buffs=[Buff(ChangeAttack(2), GreaterThan(Count(
+            MinionSelector(IsType(MINION_TYPE.MECH))), value=0))])
+canonicalized prediction: 
+class BloodFury(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Cogmaster Wrench', 3, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.EPIC)
+
+    def create_weapon(self, player):
+        return Weapon(1, 3)
+reference code for bleu calculation: 
+class CogmastersWrench(WeaponCard):
+
+    def __init__(self):
+        super().__init__("Cogmaster's Wrench", 3, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.EPIC)
+
+    def create_weapon(self, player):
+        return Weapon(1, 3, buffs=[Buff(ChangeAttack(2), GreaterThan(Count(
+            MinionSelector(IsType(MINION_TYPE.MECH))), value=0))])
+predicted code for bleu calculation: 
+class BloodFury(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Cogmaster Wrench', 3, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.EPIC)
+
+    def create_weapon(self, player):
+        return Weapon(1, 3)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 552
+intent: 
+Echo of Medivh NAME_END -1 ATK_END -1 DEF_END 4 COST_END -1 DUR_END Spell TYPE_END Mage PLAYER_CLS_END NIL RACE_END Epic RARITY_END Put a copy of each friendly minion into your hand .
+canonicalized reference: 
+class EchoOfMedivh(SpellCard):
+
+    def __init__(self):
+        super().__init__('Echo of Medivh', 4, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for minion in sorted(copy.copy(player.minions), key=lambda minion:
+            minion.born):
+            if len(player.hand) < 10:
+                player.hand.append(minion.card)
+canonicalized prediction: 
+class ColdlightSeer(SpellCard):
+
+    def __init__(self):
+        super().__init__('Echo of Medivh', 4, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC, target_func=hearthbreaker.targeting.
+            find_minion_spell_target, filter_func=lambda target: minion.
+            card.minion_type is MINION_TYPE.BEAST and minion.spell_targetable()
+            )
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(4), self)
+        player.hero.heal(player.effective_heal_power(4), self)
+reference code for bleu calculation: 
+class EchoOfMedivh(SpellCard):
+
+    def __init__(self):
+        super().__init__('Echo of Medivh', 4, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for minion in sorted(copy.copy(player.minions), key=lambda minion:
+            minion.born):
+            if len(player.hand) < 10:
+                player.hand.append(minion.card)
+predicted code for bleu calculation: 
+class ColdlightSeer(SpellCard):
+
+    def __init__(self):
+        super().__init__('Echo of Medivh', 4, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC, target_func=hearthbreaker.targeting.
+            find_minion_spell_target, filter_func=lambda target: minion.
+            card.minion_type is MINION_TYPE.BEAST and minion.spell_targetable()
+            )
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(4), self)
+        player.hero.heal(player.effective_heal_power(4), self)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 553
+intent: 
+Floating Watcher NAME_END 4 ATK_END 4 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Warlock PLAYER_CLS_END Demon RACE_END Common RARITY_END Whenever your hero takes damage on your turn , gain +2/+2 .
+canonicalized reference: 
+class FloatingWatcher(MinionCard):
+
+    def __init__(self):
+        super().__init__('Floating Watcher', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(4, 4, effects=[Effect(CharacterDamaged(And(IsHero(),
+            OwnersTurn())), ActionTag(Give([Buff(ChangeAttack(2)), Buff(
+            ChangeHealth(2))]), SelfSelector()))])
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Floating Watcher', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(4, 4, **[Effect(TurnEnded(), ActionTag(Give([Buff(
+            ChangeAttack(2)), Buff(ChangeHealth(3))]), SelfSelector(),
+            RandomPicker()))])
+reference code for bleu calculation: 
+class FloatingWatcher(MinionCard):
+
+    def __init__(self):
+        super().__init__('Floating Watcher', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(4, 4, effects=[Effect(CharacterDamaged(And(IsHero(),
+            OwnersTurn())), ActionTag(Give([Buff(ChangeAttack(2)), Buff(
+            ChangeHealth(2))]), SelfSelector()))])
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Floating Watcher', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(4, 4, **[Effect(TurnEnded(), ActionTag(Give([Buff(
+            ChangeAttack(2)), Buff(ChangeHealth(3))]), SelfSelector(),
+            RandomPicker()))])
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 554
+intent: 
+Gnomish Experimenter NAME_END 3 ATK_END 2 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Rare RARITY_END < b > Battlecry : < /b > Draw a card . If it 's a minion , transform it into a Chicken .
+canonicalized reference: 
+class GnomishExperimenter(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnomish Experimenter', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=(Battlecry(Draw(), PlayerSelector()
+            ), Battlecry(Transform(GnomishChicken()), LastDrawnSelector(),
+            Matches(LastDrawnSelector(), IsMinion()))))
+
+    def create_minion(self, player):
+        return Minion(3, 2)
+canonicalized prediction: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnomish Experimenter', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Kill(), MinionSelector(
+            players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(3, 2)
+reference code for bleu calculation: 
+class GnomishExperimenter(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnomish Experimenter', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=(Battlecry(Draw(), PlayerSelector()
+            ), Battlecry(Transform(GnomishChicken()), LastDrawnSelector(),
+            Matches(LastDrawnSelector(), IsMinion()))))
+
+    def create_minion(self, player):
+        return Minion(3, 2)
+predicted code for bleu calculation: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnomish Experimenter', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Kill(), MinionSelector(
+            players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(3, 2)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 555
+intent: 
+Iron Juggernaut NAME_END 6 ATK_END 5 DEF_END 6 COST_END -1 DUR_END Minion TYPE_END Warrior PLAYER_CLS_END Mech RACE_END Legendary RARITY_END < b > Battlecry : < /b > Shuffle a Mine into your opponent 's deck . When drawn , it explodes for 10 damage .
+canonicalized reference: 
+class IronJuggernaut(MinionCard):
+
+    def __init__(self):
+        super().__init__('Iron Juggernaut', 6, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.LEGENDARY, minion_type=MINION_TYPE.MECH, battlecry=
+            Battlecry(AddCard(BurrowingMine(), add_to_deck=True),
+            PlayerSelector(EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(6, 5)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Iron Juggernaut', 6, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.LEGENDARY, minion_type=MINION_TYPE.MECH, battlecry=
+            Battlecry(Damage(10), CharacterSelector(players=BothPlayer())))
+
+    def create_minion(self, player):
+        return Minion(6, 5)
+reference code for bleu calculation: 
+class IronJuggernaut(MinionCard):
+
+    def __init__(self):
+        super().__init__('Iron Juggernaut', 6, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.LEGENDARY, minion_type=MINION_TYPE.MECH, battlecry=
+            Battlecry(AddCard(BurrowingMine(), add_to_deck=True),
+            PlayerSelector(EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(6, 5)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Iron Juggernaut', 6, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.LEGENDARY, minion_type=MINION_TYPE.MECH, battlecry=
+            Battlecry(Damage(10), CharacterSelector(players=BothPlayer())))
+
+    def create_minion(self, player):
+        return Minion(6, 5)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 556
+intent: 
+Madder Bomber NAME_END 5 ATK_END 4 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Rare RARITY_END < b > Battlecry : < /b > Deal 6 damage randomly split between all other characters .
+canonicalized reference: 
+class MadderBomber(MinionCard):
+
+    def __init__(self):
+        super().__init__('Madder Bomber', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(1),
+            CharacterSelector(players=BothPlayer(), picker=RandomPicker(6))))
+
+    def create_minion(self, player):
+        return Minion(5, 4)
+canonicalized prediction: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Madder Bomber', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(1),
+            CharacterSelector(players=BothPlayer(), picker=RandomPicker(6))))
+
+    def create_minion(self, player):
+        return Minion(5, 4)
+reference code for bleu calculation: 
+class MadderBomber(MinionCard):
+
+    def __init__(self):
+        super().__init__('Madder Bomber', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(1),
+            CharacterSelector(players=BothPlayer(), picker=RandomPicker(6))))
+
+    def create_minion(self, player):
+        return Minion(5, 4)
+predicted code for bleu calculation: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Madder Bomber', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(1),
+            CharacterSelector(players=BothPlayer(), picker=RandomPicker(6))))
+
+    def create_minion(self, player):
+        return Minion(5, 4)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 557
+intent: 
+Mini-Mage NAME_END 4 ATK_END 1 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Epic RARITY_END < b > Stealth < /b > NL < b > Spell Damage +1 < /b >
+canonicalized reference: 
+class MiniMage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mini-Mage', 4, CHARACTER_CLASS.ALL, CARD_RARITY.EPIC)
+
+    def create_minion(self, player):
+        return Minion(4, 1, stealth=True, spell_damage=1)
+canonicalized prediction: 
+class Mini-Mage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mini-Mage', 4, CHARACTER_CLASS.ALL, CARD_RARITY.EPIC)
+
+    def create_minion(self, player):
+        return Minion(4, 1, spell_damage=1)
+reference code for bleu calculation: 
+class MiniMage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mini-Mage', 4, CHARACTER_CLASS.ALL, CARD_RARITY.EPIC)
+
+    def create_minion(self, player):
+        return Minion(4, 1, stealth=True, spell_damage=1)
+predicted code for bleu calculation: 
+class Mini-Mage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mini-Mage', 4, CHARACTER_CLASS.ALL, CARD_RARITY.EPIC)
+
+    def create_minion(self, player):
+        return Minion(4, 1, spell_damage=1)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 558
+intent: 
+Piloted Sky Golem NAME_END 6 ATK_END 4 DEF_END 6 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END Mech RACE_END Epic RARITY_END < b > Deathrattle : < /b > Summon a random 4-Cost minion .
+canonicalized reference: 
+class PilotedSkyGolem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Piloted Sky Golem', 6, CHARACTER_CLASS.ALL,
+            CARD_RARITY.EPIC, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(6, 4, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[ManaCost(4), IsMinion()])), PlayerSelector()))
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Piloted Sky Golem', 6, CHARACTER_CLASS.ALL,
+            CARD_RARITY.EPIC, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(6, 4, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[ManaCost(2), IsMinion()])), PlayerSelector()))
+reference code for bleu calculation: 
+class PilotedSkyGolem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Piloted Sky Golem', 6, CHARACTER_CLASS.ALL,
+            CARD_RARITY.EPIC, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(6, 4, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[ManaCost(4), IsMinion()])), PlayerSelector()))
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Piloted Sky Golem', 6, CHARACTER_CLASS.ALL,
+            CARD_RARITY.EPIC, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(6, 4, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[ManaCost(2), IsMinion()])), PlayerSelector()))
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 559
+intent: 
+Scarlet Purifier NAME_END 4 ATK_END 3 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Paladin PLAYER_CLS_END NIL RACE_END Rare RARITY_END < b > Battlecry < /b > : Deal 2 damage to all minions with < b > Deathrattle < /b > .
+canonicalized reference: 
+class ScarletPurifier(MinionCard):
+
+    def __init__(self):
+        super().__init__('Scarlet Purifier', 3, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(2), MinionSelector
+            (MinionHasDeathrattle(), BothPlayer())))
+
+    def create_minion(self, player):
+        return Minion(4, 3)
+canonicalized prediction: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Scarlet Purifier', 3, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(2),
+            CharacterSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 3, deathrattle=Deathrattle(Damage(2),
+            CharacterSelector(players=BothPlayer())))
+reference code for bleu calculation: 
+class ScarletPurifier(MinionCard):
+
+    def __init__(self):
+        super().__init__('Scarlet Purifier', 3, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(2), MinionSelector
+            (MinionHasDeathrattle(), BothPlayer())))
+
+    def create_minion(self, player):
+        return Minion(4, 3)
+predicted code for bleu calculation: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Scarlet Purifier', 3, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE, battlecry=Battlecry(Damage(2),
+            CharacterSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 3, deathrattle=Deathrattle(Damage(2),
+            CharacterSelector(players=BothPlayer())))
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 560
+intent: 
+Siltfin Spiritwalker NAME_END 2 ATK_END 5 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Shaman PLAYER_CLS_END Murloc RACE_END Epic RARITY_END Whenever another friendly Murloc dies , draw a card . < b > Overload < /b > : ( 1 )
+canonicalized reference: 
+class SiltfinSpiritwalker(MinionCard):
+
+    def __init__(self):
+        super().__init__('Siltfin Spiritwalker', 4, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, minion_type=MINION_TYPE.MURLOC, overload=1)
+
+    def create_minion(self, player):
+        return Minion(2, 5, effects=[Effect(MinionDied(IsType(MINION_TYPE.
+            MURLOC)), ActionTag(Draw(), PlayerSelector()))])
+canonicalized prediction: 
+class Spiritwalker(MinionCard):
+
+    def __init__(self):
+        super().__init__('Siltfin Spiritwalker', 4, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, overload=1)
+
+    def create_minion(self, player):
+        return Minion(2, 5, effects=[Effect(MinionDied(player=BothPlayer()),
+            ActionTag(Give(ChangeAttack(1)), SelfSelector()))])
+reference code for bleu calculation: 
+class SiltfinSpiritwalker(MinionCard):
+
+    def __init__(self):
+        super().__init__('Siltfin Spiritwalker', 4, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, minion_type=MINION_TYPE.MURLOC, overload=1)
+
+    def create_minion(self, player):
+        return Minion(2, 5, effects=[Effect(MinionDied(IsType(MINION_TYPE.
+            MURLOC)), ActionTag(Draw(), PlayerSelector()))])
+predicted code for bleu calculation: 
+class Spiritwalker(MinionCard):
+
+    def __init__(self):
+        super().__init__('Siltfin Spiritwalker', 4, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, overload=1)
+
+    def create_minion(self, player):
+        return Minion(2, 5, effects=[Effect(MinionDied(player=BothPlayer()),
+            ActionTag(Give(ChangeAttack(1)), SelfSelector()))])
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 561
+intent: 
+Tinkertown Technician NAME_END 3 ATK_END 3 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Battlecry : < /b > If you have a Mech , gain +1/+1 and add a < b > Spare Part < /b > to your hand .
+canonicalized reference: 
+class TinkertownTechnician(MinionCard):
+
+    def __init__(self):
+        from hearthbreaker.cards.spells.neutral import spare_part_list
+        super().__init__('Tinkertown Technician', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=(Battlecry(Give([Buff(
+            ChangeAttack(1)), Buff(ChangeHealth(1))]), SelfSelector(),
+            GreaterThan(Count(MinionSelector(IsType(MINION_TYPE.MECH))),
+            value=0)), Battlecry(AddCard(CardQuery(source=CARD_SOURCE.LIST,
+            source_list=spare_part_list)), PlayerSelector(), GreaterThan(
+            Count(MinionSelector(IsType(MINION_TYPE.MECH))), value=0))))
+
+    def create_minion(self, player):
+        return Minion(3, 3)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Tinkertown Technician', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Give([Buff(ChangeAttack
+            (1)), Buff(ChangeHealth(1))]), SelfSelector(), GreaterThan(
+            Count(MinionSelector(IsType(MINION_TYPE.PIRATE))), value=0)))
+
+    def create_minion(self, player):
+        return Minion(3, 3)
+reference code for bleu calculation: 
+class TinkertownTechnician(MinionCard):
+
+    def __init__(self):
+        from hearthbreaker.cards.spells.neutral import spare_part_list
+        super().__init__('Tinkertown Technician', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=(Battlecry(Give([Buff(
+            ChangeAttack(1)), Buff(ChangeHealth(1))]), SelfSelector(),
+            GreaterThan(Count(MinionSelector(IsType(MINION_TYPE.MECH))),
+            value=0)), Battlecry(AddCard(CardQuery(source=CARD_SOURCE.LIST,
+            source_list=spare_part_list)), PlayerSelector(), GreaterThan(
+            Count(MinionSelector(IsType(MINION_TYPE.MECH))), value=0))))
+
+    def create_minion(self, player):
+        return Minion(3, 3)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Tinkertown Technician', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, battlecry=Battlecry(Give([Buff(ChangeAttack
+            (1)), Buff(ChangeHealth(1))]), SelfSelector(), GreaterThan(
+            Count(MinionSelector(IsType(MINION_TYPE.PIRATE))), value=0)))
+
+    def create_minion(self, player):
+        return Minion(3, 3)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 562
+intent: 
+Voljin NAME_END 6 ATK_END 2 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Priest PLAYER_CLS_END NIL RACE_END Legendary RARITY_END < b > Battlecry : < /b > Swap Health with another minion .
+canonicalized reference: 
+class Voljin(MinionCard):
+
+    def __init__(self):
+        super().__init__("Vol'jin", 5, CHARACTER_CLASS.PRIEST, CARD_RARITY.
+            LEGENDARY, battlecry=Battlecry(SwapStats('health', 'health',
+            True), MinionSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(6, 2)
+canonicalized prediction: 
+class Voljin(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voljin', 5, CHARACTER_CLASS.PRIEST, CARD_RARITY.
+            LEGENDARY, battlecry=Battlecry(Give(ChangeHealth(1)),
+            MinionSelector(picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(6, 2)
+reference code for bleu calculation: 
+class Voljin(MinionCard):
+
+    def __init__(self):
+        super().__init__("Vol'jin", 5, CHARACTER_CLASS.PRIEST, CARD_RARITY.
+            LEGENDARY, battlecry=Battlecry(SwapStats('health', 'health',
+            True), MinionSelector(players=BothPlayer(), picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(6, 2)
+predicted code for bleu calculation: 
+class Voljin(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voljin', 5, CHARACTER_CLASS.PRIEST, CARD_RARITY.
+            LEGENDARY, battlecry=Battlecry(Give(ChangeHealth(1)),
+            MinionSelector(picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(6, 2)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 563
+intent: 
+Death 's Bite NAME_END 4 ATK_END -1 DEF_END 4 COST_END 2 DUR_END Weapon TYPE_END Warrior PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Deathrattle : < /b > Deal 1 damage to all minions .
+canonicalized reference: 
+class DeathsBite(WeaponCard):
+
+    def __init__(self):
+        super().__init__("Death's Bite", 4, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.COMMON)
+
+    def create_weapon(self, player):
+        return Weapon(4, 2, deathrattle=Deathrattle(Damage(1),
+            MinionSelector(players=BothPlayer())))
+canonicalized prediction: 
+class GrimscaleOracle(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Death Bite', 4, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.COMMON)
+
+    def create_weapon(self, player):
+        return Weapon(4, 2, deathrattle=Deathrattle(Damage(1),
+            CharacterSelector(None, picker=UserPicker())))
+reference code for bleu calculation: 
+class DeathsBite(WeaponCard):
+
+    def __init__(self):
+        super().__init__("Death's Bite", 4, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.COMMON)
+
+    def create_weapon(self, player):
+        return Weapon(4, 2, deathrattle=Deathrattle(Damage(1),
+            MinionSelector(players=BothPlayer())))
+predicted code for bleu calculation: 
+class GrimscaleOracle(WeaponCard):
+
+    def __init__(self):
+        super().__init__('Death Bite', 4, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.COMMON)
+
+    def create_weapon(self, player):
+        return Weapon(4, 2, deathrattle=Deathrattle(Damage(1),
+            CharacterSelector(None, picker=UserPicker())))
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 564
+intent: 
+Maexxna NAME_END 2 ATK_END 8 DEF_END 6 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END Beast RACE_END Legendary RARITY_END Destroy any minion damaged by this minion .
+canonicalized reference: 
+class Maexxna(MinionCard):
+
+    def __init__(self):
+        super().__init__('Maexxna', 6, CHARACTER_CLASS.ALL, CARD_RARITY.
+            LEGENDARY, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(2, 8, effects=[Effect(DidDamage(), ActionTag(Kill(),
+            TargetSelector(IsMinion())))])
+canonicalized prediction: 
+class Maexxna(MinionCard):
+
+    def __init__(self):
+        super().__init__('Maexxna', 6, CHARACTER_CLASS.ALL, CARD_RARITY.
+            LEGENDARY, minion_type=MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(2, 8, effects=[Effect(TurnStarted(), ActionTag(Give(
+            Frozen()), SelfSelector()))])
+reference code for bleu calculation: 
+class Maexxna(MinionCard):
+
+    def __init__(self):
+        super().__init__('Maexxna', 6, CHARACTER_CLASS.ALL, CARD_RARITY.
+            LEGENDARY, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(2, 8, effects=[Effect(DidDamage(), ActionTag(Kill(),
+            TargetSelector(IsMinion())))])
+predicted code for bleu calculation: 
+class Maexxna(MinionCard):
+
+    def __init__(self):
+        super().__init__('Maexxna', 6, CHARACTER_CLASS.ALL, CARD_RARITY.
+            LEGENDARY, minion_type=MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(2, 8, effects=[Effect(TurnStarted(), ActionTag(Give(
+            Frozen()), SelfSelector()))])
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 565
+intent: 
+Sludge Belcher NAME_END 3 ATK_END 5 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Rare RARITY_END < b > Taunt . NL Deathrattle : < /b > Summon a 1/2 Slime with < b > Taunt < /b > .
+canonicalized reference: 
+class SludgeBelcher(MinionCard):
+
+    def __init__(self):
+        super().__init__('Sludge Belcher', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE)
+
+    def create_minion(self, player):
+        return Minion(3, 5, taunt=True, deathrattle=Deathrattle(Summon(
+            Slime()), PlayerSelector()))
+canonicalized prediction: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Sludge Belcher', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE)
+
+    def create_minion(self, player):
+        return Minion(3, 5, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[ManaCost(2), IsMinion()])), PlayerSelector()))
+reference code for bleu calculation: 
+class SludgeBelcher(MinionCard):
+
+    def __init__(self):
+        super().__init__('Sludge Belcher', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE)
+
+    def create_minion(self, player):
+        return Minion(3, 5, taunt=True, deathrattle=Deathrattle(Summon(
+            Slime()), PlayerSelector()))
+predicted code for bleu calculation: 
+class ColdlightSeer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Sludge Belcher', 5, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE)
+
+    def create_minion(self, player):
+        return Minion(3, 5, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[ManaCost(2), IsMinion()])), PlayerSelector()))
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 566
+intent: 
+Voidcaller NAME_END 3 ATK_END 4 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Warlock PLAYER_CLS_END Demon RACE_END Common RARITY_END < b > Deathrattle : < /b > Put a random Demon from your hand into the battlefield .
+canonicalized reference: 
+class Voidcaller(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voidcaller', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(3, 4, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[IsType(MINION_TYPE.DEMON)], source=CARD_SOURCE.
+            MY_HAND)), PlayerSelector()))
+canonicalized prediction: 
+class Voidcaller(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voidcaller', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(3, 4, deathrattle=Deathrattle(Bounce(),
+            MinionSelector(picker=RandomPicker())))
+reference code for bleu calculation: 
+class Voidcaller(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voidcaller', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(3, 4, deathrattle=Deathrattle(Summon(CardQuery(
+            conditions=[IsType(MINION_TYPE.DEMON)], source=CARD_SOURCE.
+            MY_HAND)), PlayerSelector()))
+predicted code for bleu calculation: 
+class Voidcaller(MinionCard):
+
+    def __init__(self):
+        super().__init__('Voidcaller', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(3, 4, deathrattle=Deathrattle(Bounce(),
+            MinionSelector(picker=RandomPicker())))
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 568
+intent: 
+Arcane Golem NAME_END 4 ATK_END 2 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Rare RARITY_END < b > Charge < /b > . < b > Battlecry : < /b > Give your opponent a Mana Crystal .
+canonicalized reference: 
+class ArcaneGolem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Arcane Golem', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(GiveManaCrystal(),
+            PlayerSelector(players=EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(4, 2, charge=True)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Arcane Golem', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Give(BuffUntil(
+            ChangeAttack(2), TurnEnded(player=CurrentPlayer()))),
+            MinionSelector(picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 2)
+reference code for bleu calculation: 
+class ArcaneGolem(MinionCard):
+
+    def __init__(self):
+        super().__init__('Arcane Golem', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(GiveManaCrystal(),
+            PlayerSelector(players=EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(4, 2, charge=True)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Arcane Golem', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.RARE, battlecry=Battlecry(Give(BuffUntil(
+            ChangeAttack(2), TurnEnded(player=CurrentPlayer()))),
+            MinionSelector(picker=UserPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 2)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 569
+intent: 
+Baine Bloodhoof NAME_END 4 ATK_END 5 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Legendary RARITY_END NIL
+canonicalized reference: 
+class BaineBloodhoof(MinionCard):
+
+    def __init__(self):
+        super().__init__('Baine Bloodhoof', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.LEGENDARY, False)
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Baine Bloodhoof', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.LEGENDARY, False)
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+reference code for bleu calculation: 
+class BaineBloodhoof(MinionCard):
+
+    def __init__(self):
+        super().__init__('Baine Bloodhoof', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.LEGENDARY, False)
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Baine Bloodhoof', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.LEGENDARY, False)
+
+    def create_minion(self, player):
+        return Minion(4, 5)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 570
+intent: 
+Blade Flurry NAME_END -1 ATK_END -1 DEF_END 2 COST_END -1 DUR_END Spell TYPE_END Rogue PLAYER_CLS_END NIL RACE_END Rare RARITY_END Destroy your weapon and deal its damage to all enemies .
+canonicalized reference: 
+class BladeFlurry(SpellCard):
+
+    def __init__(self):
+        super().__init__('Blade Flurry', 2, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        if player.weapon is not None:
+            attack_power = player.effective_spell_damage(player.hero.
+                calculate_attack())
+            player.weapon.destroy()
+            for minion in copy.copy(game.other_player.minions):
+                minion.damage(attack_power, self)
+            game.other_player.hero.damage(attack_power, self)
+canonicalized prediction: 
+class weapon(SpellCard):
+
+    def __init__(self):
+        super().__init__('Blade Flurry', 2, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        if player.hero.health <= 2:
+            targets = (hearthbreaker.targeting.
+                find_enemy_minion_battlecry_target(player.game, lambda x: True)
+                )
+            target = game.random_choice(targets)
+            target.die(None)
+            attacker.card.add_buff(Buff(ManaChange(-2)))
+reference code for bleu calculation: 
+class BladeFlurry(SpellCard):
+
+    def __init__(self):
+        super().__init__('Blade Flurry', 2, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        if player.weapon is not None:
+            attack_power = player.effective_spell_damage(player.hero.
+                calculate_attack())
+            player.weapon.destroy()
+            for minion in copy.copy(game.other_player.minions):
+                minion.damage(attack_power, self)
+            game.other_player.hero.damage(attack_power, self)
+predicted code for bleu calculation: 
+class weapon(SpellCard):
+
+    def __init__(self):
+        super().__init__('Blade Flurry', 2, CHARACTER_CLASS.ROGUE,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        if player.hero.health <= 2:
+            targets = (hearthbreaker.targeting.
+                find_enemy_minion_battlecry_target(player.game, lambda x: True)
+                )
+            target = game.random_choice(targets)
+            target.die(None)
+            attacker.card.add_buff(Buff(ManaChange(-2)))
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 571
+intent: 
+Brawl NAME_END -1 ATK_END -1 DEF_END 5 COST_END -1 DUR_END Spell TYPE_END Warrior PLAYER_CLS_END NIL RACE_END Epic RARITY_END Destroy all minions except one . < i > ( chosen randomly ) < /i >
+canonicalized reference: 
+class Brawl(SpellCard):
+
+    def __init__(self):
+        super().__init__('Brawl', 5, CHARACTER_CLASS.WARRIOR, CARD_RARITY.EPIC)
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and len(player.minions) + len(
+            player.opponent.minions) >= 2
+
+    def use(self, player, game):
+        super().use(player, game)
+        minions = copy.copy(player.minions)
+        minions.extend(game.other_player.minions)
+        if len(minions) > 1:
+            survivor = game.random_choice(minions)
+            for minion in minions:
+                if minion is not survivor:
+                    minion.die(self)
+canonicalized prediction: 
+class Brawl(SpellCard):
+
+    def __init__(self):
+        super().__init__('Brawl', 5, CHARACTER_CLASS.WARRIOR, CARD_RARITY.EPIC)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(player.minions)
+        for minion in targets:
+            minion.randomly()
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and (len(player.minions) > 0 or
+            len(game.other_player.minions) > 0)
+reference code for bleu calculation: 
+class Brawl(SpellCard):
+
+    def __init__(self):
+        super().__init__('Brawl', 5, CHARACTER_CLASS.WARRIOR, CARD_RARITY.EPIC)
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and len(player.minions) + len(
+            player.opponent.minions) >= 2
+
+    def use(self, player, game):
+        super().use(player, game)
+        minions = copy.copy(player.minions)
+        minions.extend(game.other_player.minions)
+        if len(minions) > 1:
+            survivor = game.random_choice(minions)
+            for minion in minions:
+                if minion is not survivor:
+                    minion.die(self)
+predicted code for bleu calculation: 
+class Brawl(SpellCard):
+
+    def __init__(self):
+        super().__init__('Brawl', 5, CHARACTER_CLASS.WARRIOR, CARD_RARITY.EPIC)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(player.minions)
+        for minion in targets:
+            minion.randomly()
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and (len(player.minions) > 0 or
+            len(game.other_player.minions) > 0)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 572
+intent: 
+Conceal NAME_END -1 ATK_END -1 DEF_END 1 COST_END -1 DUR_END Spell TYPE_END Rogue PLAYER_CLS_END NIL RACE_END Common RARITY_END Give your minions < b > Stealth < /b > until your next turn .
+canonicalized reference: 
+class Conceal(SpellCard):
+
+    def __init__(self):
+        super().__init__('Conceal', 1, CHARACTER_CLASS.ROGUE, CARD_RARITY.
+            COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for minion in player.minions:
+            if not minion.stealth:
+                minion.add_buff(BuffUntil(Stealth(), TurnStarted()))
+canonicalized prediction: 
+class Conceal(SpellCard):
+
+    def __init__(self):
+        super().__init__('Conceal', 1, CHARACTER_CLASS.ROGUE, CARD_RARITY.
+            COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = hearthbreaker.targeting.find_enemy_minion_battlecry_target(
+            player.game, lambda x: True)
+        target = game.random_choice(targets)
+        target.die(None)
+        game.check_delayed()
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and len(game.other_player.minions
+            ) >= 1
+reference code for bleu calculation: 
+class Conceal(SpellCard):
+
+    def __init__(self):
+        super().__init__('Conceal', 1, CHARACTER_CLASS.ROGUE, CARD_RARITY.
+            COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for minion in player.minions:
+            if not minion.stealth:
+                minion.add_buff(BuffUntil(Stealth(), TurnStarted()))
+predicted code for bleu calculation: 
+class Conceal(SpellCard):
+
+    def __init__(self):
+        super().__init__('Conceal', 1, CHARACTER_CLASS.ROGUE, CARD_RARITY.
+            COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = hearthbreaker.targeting.find_enemy_minion_battlecry_target(
+            player.game, lambda x: True)
+        target = game.random_choice(targets)
+        target.die(None)
+        game.check_delayed()
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and len(game.other_player.minions
+            ) >= 1
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 573
+intent: 
+Defender NAME_END 2 ATK_END 1 DEF_END 1 COST_END -1 DUR_END Minion TYPE_END Paladin PLAYER_CLS_END NIL RACE_END Common RARITY_END NIL
+canonicalized reference: 
+class DefenderMinion(MinionCard):
+
+    def __init__(self):
+        super().__init__('Defender', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, p):
+        return Minion(2, 1)
+canonicalized prediction: 
+class Defender(MinionCard):
+
+    def __init__(self):
+        super().__init__('Defender', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON, False, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+reference code for bleu calculation: 
+class DefenderMinion(MinionCard):
+
+    def __init__(self):
+        super().__init__('Defender', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, p):
+        return Minion(2, 1)
+predicted code for bleu calculation: 
+class Defender(MinionCard):
+
+    def __init__(self):
+        super().__init__('Defender', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON, False, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 574
+intent: 
+Doomguard NAME_END 5 ATK_END 7 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Warlock PLAYER_CLS_END Demon RACE_END Rare RARITY_END < b > Charge < /b > . < b > Battlecry : < /b > Discard two random cards .
+canonicalized reference: 
+class Doomguard(MinionCard):
+
+    def __init__(self):
+        super().__init__('Doomguard', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, minion_type=MINION_TYPE.DEMON, battlecry=
+            Battlecry(Discard(amount=2), PlayerSelector()))
+
+    def create_minion(self, player):
+        return Minion(5, 7, charge=True)
+canonicalized prediction: 
+class Doomguard(MinionCard):
+
+    def __init__(self):
+        super().__init__('Doomguard', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, minion_type=MINION_TYPE.PIRATE, battlecry=
+            Battlecry(Draw(2), PlayerSelector(players=EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(5, 7)
+reference code for bleu calculation: 
+class Doomguard(MinionCard):
+
+    def __init__(self):
+        super().__init__('Doomguard', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, minion_type=MINION_TYPE.DEMON, battlecry=
+            Battlecry(Discard(amount=2), PlayerSelector()))
+
+    def create_minion(self, player):
+        return Minion(5, 7, charge=True)
+predicted code for bleu calculation: 
+class Doomguard(MinionCard):
+
+    def __init__(self):
+        super().__init__('Doomguard', 5, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, minion_type=MINION_TYPE.PIRATE, battlecry=
+            Battlecry(Draw(2), PlayerSelector(players=EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(5, 7)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 575
+intent: 
+Earth Elemental NAME_END 7 ATK_END 8 DEF_END 5 COST_END -1 DUR_END Minion TYPE_END Shaman PLAYER_CLS_END NIL RACE_END Epic RARITY_END < b > Taunt < /b > . < b > Overload : < /b > ( 3 )
+canonicalized reference: 
+class EarthElemental(MinionCard):
+
+    def __init__(self):
+        super().__init__('Earth Elemental', 5, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, overload=3)
+
+    def create_minion(self, player):
+        return Minion(7, 8, taunt=True)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Earth Elemental', 5, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, overload=3)
+
+    def create_minion(self, player):
+        return Minion(7, 8, taunt=True)
+reference code for bleu calculation: 
+class EarthElemental(MinionCard):
+
+    def __init__(self):
+        super().__init__('Earth Elemental', 5, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, overload=3)
+
+    def create_minion(self, player):
+        return Minion(7, 8, taunt=True)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Earth Elemental', 5, CHARACTER_CLASS.SHAMAN,
+            CARD_RARITY.EPIC, overload=3)
+
+    def create_minion(self, player):
+        return Minion(7, 8, taunt=True)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 576
+intent: 
+Explosive Trap NAME_END -1 ATK_END -1 DEF_END 2 COST_END -1 DUR_END Spell TYPE_END Hunter PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Secret : < /b > When your hero is attacked , deal $ 2 damage to all enemies .
+canonicalized reference: 
+class ExplosiveTrap(SecretCard):
+
+    def __init__(self):
+        super().__init__('Explosive Trap', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.COMMON)
+
+    def activate(self, player):
+        player.opponent.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.opponent.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(target, Hero):
+            game = attacker.player.game
+            enemies = copy.copy(game.current_player.minions)
+            enemies.append(game.current_player.hero)
+            for enemy in enemies:
+                enemy.damage(2, None)
+            game.check_delayed()
+            super().reveal()
+canonicalized prediction: 
+class Explosive(SecretCard):
+
+    def __init__(self):
+        super().__init__('Explosive Trap', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.COMMON)
+
+    def activate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(target, Minion) and len(player.minions) < 10 and len(
+            player.opponent.minions) >= 0:
+            self.target.RandomPicker()
+            player.hand.append(new_minon)
+            card.player = player
+            target.increase_health(2)
+            target.increase_health(2)
+            super().reveal()
+
+    def activate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(target, Minion) and len(player.minions) < 10 and len(
+            player.opponent.minions) >= 0:
+            self.target.RandomPicker()
+            player.hand.append(new_minon)
+            card.player = player
+            self.trigger('card_drawn', demon_card)
+            super().reveal()
+reference code for bleu calculation: 
+class ExplosiveTrap(SecretCard):
+
+    def __init__(self):
+        super().__init__('Explosive Trap', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.COMMON)
+
+    def activate(self, player):
+        player.opponent.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.opponent.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(target, Hero):
+            game = attacker.player.game
+            enemies = copy.copy(game.current_player.minions)
+            enemies.append(game.current_player.hero)
+            for enemy in enemies:
+                enemy.damage(2, None)
+            game.check_delayed()
+            super().reveal()
+predicted code for bleu calculation: 
+class Explosive(SecretCard):
+
+    def __init__(self):
+        super().__init__('Explosive Trap', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.COMMON)
+
+    def activate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(target, Minion) and len(player.minions) < 10 and len(
+            player.opponent.minions) >= 0:
+            self.target.RandomPicker()
+            player.hand.append(new_minon)
+            card.player = player
+            target.increase_health(2)
+            target.increase_health(2)
+            super().reveal()
+
+    def activate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(target, Minion) and len(player.minions) < 10 and len(
+            player.opponent.minions) >= 0:
+            self.target.RandomPicker()
+            player.hand.append(new_minon)
+            card.player = player
+            self.trigger('card_drawn', demon_card)
+            super().reveal()
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 577
+intent: 
+Flame of Azzinoth NAME_END 2 ATK_END 1 DEF_END 1 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END NIL RARITY_END NIL
+canonicalized reference: 
+class FlameOfAzzinoth(MinionCard):
+
+    def __init__(self):
+        super().__init__('Flame of Azzinoth', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Flame of Azzinoth', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, False, MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+reference code for bleu calculation: 
+class FlameOfAzzinoth(MinionCard):
+
+    def __init__(self):
+        super().__init__('Flame of Azzinoth', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Flame of Azzinoth', 1, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, False, MINION_TYPE.BEAST)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 578
+intent: 
+Gnoll NAME_END 2 ATK_END 2 DEF_END 2 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END NIL RARITY_END < b > Taunt < /b >
+canonicalized reference: 
+class Gnoll(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnoll', 2, CHARACTER_CLASS.ALL, CARD_RARITY.
+            COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(2, 2, taunt=True)
+canonicalized prediction: 
+class Gnoll(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnoll', 2, CHARACTER_CLASS.ALL, CARD_RARITY.
+            COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(2, 2, taunt=True)
+reference code for bleu calculation: 
+class Gnoll(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnoll', 2, CHARACTER_CLASS.ALL, CARD_RARITY.
+            COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(2, 2, taunt=True)
+predicted code for bleu calculation: 
+class Gnoll(MinionCard):
+
+    def __init__(self):
+        super().__init__('Gnoll', 2, CHARACTER_CLASS.ALL, CARD_RARITY.
+            COMMON, False)
+
+    def create_minion(self, player):
+        return Minion(2, 2, taunt=True)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 579
+intent: 
+Holy Wrath NAME_END -1 ATK_END -1 DEF_END 5 COST_END -1 DUR_END Spell TYPE_END Paladin PLAYER_CLS_END NIL RACE_END Rare RARITY_END Draw a card and deal damage equal to its cost .
+canonicalized reference: 
+class HolyWrath(SpellCard):
+
+    def __init__(self):
+        super().__init__('Holy Wrath', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        fatigue = False
+        if player.deck.left == 0:
+            fatigue = True
+        player.draw()
+        if not fatigue:
+            cost = player.hand[-1].mana
+            self.target.damage(player.effective_spell_damage(cost), self)
+canonicalized prediction: 
+class Draw(SpellCard):
+
+    def __init__(self):
+        super().__init__('Holy Wrath', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for i in range(0, 2):
+            player.draw()
+reference code for bleu calculation: 
+class HolyWrath(SpellCard):
+
+    def __init__(self):
+        super().__init__('Holy Wrath', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        fatigue = False
+        if player.deck.left == 0:
+            fatigue = True
+        player.draw()
+        if not fatigue:
+            cost = player.hand[-1].mana
+            self.target.damage(player.effective_spell_damage(cost), self)
+predicted code for bleu calculation: 
+class Draw(SpellCard):
+
+    def __init__(self):
+        super().__init__('Holy Wrath', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for i in range(0, 2):
+            player.draw()
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 580
+intent: 
+Infernal NAME_END 6 ATK_END 6 DEF_END 6 COST_END -1 DUR_END Minion TYPE_END Warlock PLAYER_CLS_END Demon RACE_END Common RARITY_END NIL
+canonicalized reference: 
+class Infernal(MinionCard):
+
+    def __init__(self):
+        super().__init__('Infernal', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, False, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(6, 6)
+canonicalized prediction: 
+class Infernal(MinionCard):
+
+    def __init__(self):
+        super().__init__('Infernal', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(6, 6)
+reference code for bleu calculation: 
+class Infernal(MinionCard):
+
+    def __init__(self):
+        super().__init__('Infernal', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, False, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(6, 6)
+predicted code for bleu calculation: 
+class Infernal(MinionCard):
+
+    def __init__(self):
+        super().__init__('Infernal', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DEMON)
+
+    def create_minion(self, player):
+        return Minion(6, 6)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 581
+intent: 
+Kirin Tor Mage NAME_END 4 ATK_END 3 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Mage PLAYER_CLS_END NIL RACE_END Rare RARITY_END < b > Battlecry : < /b > The next < b > Secret < /b > you play this turn costs ( 0 ) .
+canonicalized reference: 
+class KirinTorMage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Kirin Tor Mage', 3, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.RARE, battlecry=Battlecry(GiveAura([AuraUntil(
+            ManaChange(-100), CardSelector(condition=IsSecret()),
+            CardPlayed(IsSecret()))]), PlayerSelector()))
+
+    def create_minion(self, player):
+        return Minion(4, 3)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Kirin Tor Mage', 3, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.RARE, battlecry=Battlecry(Kill(), MinionSelector(
+            ActionTag(Kill(), MinionSelector(IsType(MINION_TYPE.MECH, True),
+            players=BothPlayer(), picker=UserPicker())), RandomPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 3)
+reference code for bleu calculation: 
+class KirinTorMage(MinionCard):
+
+    def __init__(self):
+        super().__init__('Kirin Tor Mage', 3, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.RARE, battlecry=Battlecry(GiveAura([AuraUntil(
+            ManaChange(-100), CardSelector(condition=IsSecret()),
+            CardPlayed(IsSecret()))]), PlayerSelector()))
+
+    def create_minion(self, player):
+        return Minion(4, 3)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Kirin Tor Mage', 3, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.RARE, battlecry=Battlecry(Kill(), MinionSelector(
+            ActionTag(Kill(), MinionSelector(IsType(MINION_TYPE.MECH, True),
+            players=BothPlayer(), picker=UserPicker())), RandomPicker())))
+
+    def create_minion(self, player):
+        return Minion(4, 3)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 582
+intent: 
+Lightwarden NAME_END 1 ATK_END 2 DEF_END 1 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Rare RARITY_END Whenever a character is healed , gain +2 Attack .
+canonicalized reference: 
+class Lightwarden(MinionCard):
+
+    def __init__(self):
+        super().__init__('Lightwarden', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(1, 2, effects=[Effect(CharacterHealed(player=
+            BothPlayer()), ActionTag(Give(ChangeAttack(2)), SelfSelector()))])
+canonicalized prediction: 
+class Lightwarden(MinionCard):
+
+    def __init__(self):
+        super().__init__('Lightwarden', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(1, 2, **True)
+reference code for bleu calculation: 
+class Lightwarden(MinionCard):
+
+    def __init__(self):
+        super().__init__('Lightwarden', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(1, 2, effects=[Effect(CharacterHealed(player=
+            BothPlayer()), ActionTag(Give(ChangeAttack(2)), SelfSelector()))])
+predicted code for bleu calculation: 
+class Lightwarden(MinionCard):
+
+    def __init__(self):
+        super().__init__('Lightwarden', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(1, 2, **True)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 583
+intent: 
+Mana Wraith NAME_END 2 ATK_END 2 DEF_END 2 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Rare RARITY_END ALL minions cost ( 1 ) more .
+canonicalized reference: 
+class ManaWraith(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mana Wraith', 2, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(2, 2, auras=[Aura(ManaChange(1), CardSelector(
+            BothPlayer(), IsMinion()))])
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mana Wraith', 2, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(2, 2, auras=[Aura(ManaChange(1), MinionSelector())])
+reference code for bleu calculation: 
+class ManaWraith(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mana Wraith', 2, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(2, 2, auras=[Aura(ManaChange(1), CardSelector(
+            BothPlayer(), IsMinion()))])
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Mana Wraith', 2, CHARACTER_CLASS.ALL, CARD_RARITY
+            .RARE)
+
+    def create_minion(self, player):
+        return Minion(2, 2, auras=[Aura(ManaChange(1), MinionSelector())])
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 584
+intent: 
+Misdirection NAME_END -1 ATK_END -1 DEF_END 2 COST_END -1 DUR_END Spell TYPE_END Hunter PLAYER_CLS_END NIL RACE_END Rare RARITY_END < b > Secret : < /b > When a character attacks your hero , instead he attacks another random character .
+canonicalized reference: 
+class Misdirection(SecretCard):
+
+    def __init__(self):
+        super().__init__('Misdirection', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.RARE)
+
+    def activate(self, player):
+        player.opponent.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.opponent.unbind('character_attack', self._reveal)
+
+    def _reveal(self, character, target):
+        if isinstance(target, Hero) and not character.removed:
+            game = character.player.game
+            possibilities = copy.copy(game.current_player.minions)
+            possibilities.extend(game.other_player.minions)
+            possibilities.append(game.current_player.hero)
+            possibilities.append(game.other_player.hero)
+            possibilities.remove(character.current_target)
+            character.current_target = game.random_choice(possibilities)
+            super().reveal()
+canonicalized prediction: 
+class Misdirection(SecretCard):
+
+    def __init__(self):
+        super().__init__('Misdirection', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.RARE)
+
+    def activate(self, player):
+        player.game.current_player.bind('minion_played', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('minion_played', self._reveal)
+
+    def _reveal(self, minion):
+        if isinstance(target, Minion):
+            if len(self.player.hand) < 10:
+                target.die(None)
+                super().reveal()
+reference code for bleu calculation: 
+class Misdirection(SecretCard):
+
+    def __init__(self):
+        super().__init__('Misdirection', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.RARE)
+
+    def activate(self, player):
+        player.opponent.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.opponent.unbind('character_attack', self._reveal)
+
+    def _reveal(self, character, target):
+        if isinstance(target, Hero) and not character.removed:
+            game = character.player.game
+            possibilities = copy.copy(game.current_player.minions)
+            possibilities.extend(game.other_player.minions)
+            possibilities.append(game.current_player.hero)
+            possibilities.append(game.other_player.hero)
+            possibilities.remove(character.current_target)
+            character.current_target = game.random_choice(possibilities)
+            super().reveal()
+predicted code for bleu calculation: 
+class Misdirection(SecretCard):
+
+    def __init__(self):
+        super().__init__('Misdirection', 2, CHARACTER_CLASS.HUNTER,
+            CARD_RARITY.RARE)
+
+    def activate(self, player):
+        player.game.current_player.bind('minion_played', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('minion_played', self._reveal)
+
+    def _reveal(self, minion):
+        if isinstance(target, Minion):
+            if len(self.player.hand) < 10:
+                target.die(None)
+                super().reveal()
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 585
+intent: 
+Noble Sacrifice NAME_END -1 ATK_END -1 DEF_END 1 COST_END -1 DUR_END Spell TYPE_END Paladin PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Secret : < /b > When an enemy attacks , summon a 2/1 Defender as the new target .
+canonicalized reference: 
+class NobleSacrifice(SecretCard):
+
+    def __init__(self):
+        super().__init__('Noble Sacrifice', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def _reveal(self, attacker, target):
+        player = attacker.player.game.other_player
+        if len(player.minions) < 7 and not attacker.removed:
+            from hearthbreaker.cards.minions.paladin import DefenderMinion
+            defender = DefenderMinion()
+            defender.summon(player, player.game, len(player.minions))
+            attacker.current_target = player.minions[-1]
+            super().reveal()
+
+    def activate(self, player):
+        player.opponent.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.opponent.unbind('character_attack', self._reveal)
+canonicalized prediction: 
+class ColdlightSeer(SecretCard):
+
+    def __init__(self):
+        super().__init__('Noble Sacrifice', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def activate(self, player):
+        player.game.current_player.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(attacker, Minion) and not c.drawn and isinstance(attacker
+            .player, new_minon, len(player.minions)):
+            if len(player.hand) < 10:
+                player.hand.append(demon_card)
+                demon_card.player = player
+                self.trigger('card_drawn', demon_card)
+            else:
+                player.trigger('card_drawn', demon_card)
+            super().reveal()
+reference code for bleu calculation: 
+class NobleSacrifice(SecretCard):
+
+    def __init__(self):
+        super().__init__('Noble Sacrifice', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def _reveal(self, attacker, target):
+        player = attacker.player.game.other_player
+        if len(player.minions) < 7 and not attacker.removed:
+            from hearthbreaker.cards.minions.paladin import DefenderMinion
+            defender = DefenderMinion()
+            defender.summon(player, player.game, len(player.minions))
+            attacker.current_target = player.minions[-1]
+            super().reveal()
+
+    def activate(self, player):
+        player.opponent.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.opponent.unbind('character_attack', self._reveal)
+predicted code for bleu calculation: 
+class ColdlightSeer(SecretCard):
+
+    def __init__(self):
+        super().__init__('Noble Sacrifice', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def activate(self, player):
+        player.game.current_player.bind('character_attack', self._reveal)
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('character_attack', self._reveal)
+
+    def _reveal(self, attacker, target):
+        if isinstance(attacker, Minion) and not c.drawn and isinstance(attacker
+            .player, new_minon, len(player.minions)):
+            if len(player.hand) < 10:
+                player.hand.append(demon_card)
+                demon_card.player = player
+                self.trigger('card_drawn', demon_card)
+            else:
+                player.trigger('card_drawn', demon_card)
+            super().reveal()
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 586
+intent: 
+Power of the Wild NAME_END -1 ATK_END -1 DEF_END 2 COST_END -1 DUR_END Spell TYPE_END Druid PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Choose One < /b > - Give your minions +1/+1 ; or Summon a 3/2 Panther .
+canonicalized reference: 
+class PowerOfTheWild(SpellCard):
+
+    def __init__(self):
+        super().__init__('Power of the Wild', 2, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        option = player.agent.choose_option([LeaderOfThePack(),
+            SummonPanther()], player)
+        option.use(player, game)
+canonicalized prediction: 
+class ColdlightSeer(SpellCard):
+
+    def __init__(self):
+        super().__init__('Power of the Wild', 2, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        from hearthbreaker.cards.minions.druid import Treant as True
+        if player.cards_played > 0:
+            player.add_effect(Effect(TurnEnded(), ActionTag(Kill(),
+                SelfSelector())))
+            super().use(player, game)
+            self.target.change_attack(4)
+            self.target.increase_health(4)
+reference code for bleu calculation: 
+class PowerOfTheWild(SpellCard):
+
+    def __init__(self):
+        super().__init__('Power of the Wild', 2, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        option = player.agent.choose_option([LeaderOfThePack(),
+            SummonPanther()], player)
+        option.use(player, game)
+predicted code for bleu calculation: 
+class ColdlightSeer(SpellCard):
+
+    def __init__(self):
+        super().__init__('Power of the Wild', 2, CHARACTER_CLASS.DRUID,
+            CARD_RARITY.COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        from hearthbreaker.cards.minions.druid import Treant as True
+        if player.cards_played > 0:
+            player.add_effect(Effect(TurnEnded(), ActionTag(Kill(),
+                SelfSelector())))
+            super().use(player, game)
+            self.target.change_attack(4)
+            self.target.increase_health(4)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 587
+intent: 
+Redemption NAME_END -1 ATK_END -1 DEF_END 1 COST_END -1 DUR_END Spell TYPE_END Paladin PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Secret : < /b > When one of your minions dies , return it to life with 1 Health .
+canonicalized reference: 
+class Redemption(SecretCard):
+
+    def __init__(self):
+        super().__init__('Redemption', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def _reveal(self, minion, by):
+        resurrection = minion.card.summon(minion.player, minion.game, min(
+            minion.index, len(minion.player.minions)))
+        if resurrection:
+            resurrection.health = 1
+            super().reveal()
+
+    def activate(self, player):
+        player.bind('minion_died', self._reveal)
+
+    def deactivate(self, player):
+        player.unbind('minion_died', self._reveal)
+canonicalized prediction: 
+class Redemption(SecretCard):
+
+    def __init__(self):
+        super().__init__('Redemption', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for minion in copy.copy(game.other_player.minions):
+            minion.>()
+reference code for bleu calculation: 
+class Redemption(SecretCard):
+
+    def __init__(self):
+        super().__init__('Redemption', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def _reveal(self, minion, by):
+        resurrection = minion.card.summon(minion.player, minion.game, min(
+            minion.index, len(minion.player.minions)))
+        if resurrection:
+            resurrection.health = 1
+            super().reveal()
+
+    def activate(self, player):
+        player.bind('minion_died', self._reveal)
+
+    def deactivate(self, player):
+        player.unbind('minion_died', self._reveal)
+predicted code for bleu calculation: 
+class Redemption(SecretCard):
+
+    def __init__(self):
+        super().__init__('Redemption', 1, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON)
+
+    def use(self, player, game):
+        super().use(player, game)
+        for minion in copy.copy(game.other_player.minions):
+            minion.>()
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 588
+intent: 
+Shadow Madness NAME_END -1 ATK_END -1 DEF_END 4 COST_END -1 DUR_END Spell TYPE_END Priest PLAYER_CLS_END NIL RACE_END Rare RARITY_END Gain control of an enemy minion with 3 or less Attack until end of turn .
+canonicalized reference: 
+class ShadowMadness(SpellCard):
+
+    def __init__(self):
+        super().__init__('Shadow Madness', 4, CHARACTER_CLASS.PRIEST,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_enemy_minion_spell_target, filter_func=lambda target: 
+            target.calculate_attack() <= 3 and target.spell_targetable())
+
+    def use(self, player, game):
+        super().use(player, game)
+        minion = self.target.copy(player)
+        minion.active = True
+        minion.exhausted = False
+        self.target.remove_from_board()
+        minion.add_to_board(len(player.minions))
+        minion.add_buff(BuffUntil(Stolen(), TurnEnded()))
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and len(player.minions) < 7
+canonicalized prediction: 
+class Shadow(SpellCard):
+
+    def __init__(self):
+        super().__init__('Shadow Madness', 4, CHARACTER_CLASS.PRIEST,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_enemy_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(3), self)
+reference code for bleu calculation: 
+class ShadowMadness(SpellCard):
+
+    def __init__(self):
+        super().__init__('Shadow Madness', 4, CHARACTER_CLASS.PRIEST,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_enemy_minion_spell_target, filter_func=lambda target: 
+            target.calculate_attack() <= 3 and target.spell_targetable())
+
+    def use(self, player, game):
+        super().use(player, game)
+        minion = self.target.copy(player)
+        minion.active = True
+        minion.exhausted = False
+        self.target.remove_from_board()
+        minion.add_to_board(len(player.minions))
+        minion.add_buff(BuffUntil(Stolen(), TurnEnded()))
+
+    def can_use(self, player, game):
+        return super().can_use(player, game) and len(player.minions) < 7
+predicted code for bleu calculation: 
+class Shadow(SpellCard):
+
+    def __init__(self):
+        super().__init__('Shadow Madness', 4, CHARACTER_CLASS.PRIEST,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_enemy_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(3), self)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 589
+intent: 
+Siphon Soul NAME_END -1 ATK_END -1 DEF_END 6 COST_END -1 DUR_END Spell TYPE_END Warlock PLAYER_CLS_END NIL RACE_END Rare RARITY_END Destroy a minion . Restore # 3 Health to your hero .
+canonicalized reference: 
+class SiphonSoul(SpellCard):
+
+    def __init__(self):
+        super().__init__('Siphon Soul', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.die(self)
+        player.hero.heal(player.effective_heal_power(3), self)
+canonicalized prediction: 
+class Destroy(SpellCard):
+
+    def __init__(self):
+        super().__init__('Siphon Soul', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_minion_spell_target, filter_func=lambda target: target.
+            health != target.calculate_max_health() and target.
+            spell_targetable())
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(3), self)
+        player.hero.heal(player.effective_heal_power(3), self)
+reference code for bleu calculation: 
+class SiphonSoul(SpellCard):
+
+    def __init__(self):
+        super().__init__('Siphon Soul', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.die(self)
+        player.hero.heal(player.effective_heal_power(3), self)
+predicted code for bleu calculation: 
+class Destroy(SpellCard):
+
+    def __init__(self):
+        super().__init__('Siphon Soul', 6, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.RARE, target_func=hearthbreaker.targeting.
+            find_minion_spell_target, filter_func=lambda target: target.
+            health != target.calculate_max_health() and target.
+            spell_targetable())
+
+    def use(self, player, game):
+        super().use(player, game)
+        self.target.damage(player.effective_spell_damage(3), self)
+        player.hero.heal(player.effective_heal_power(3), self)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 590
+intent: 
+Spellbender NAME_END 1 ATK_END 3 DEF_END 0 COST_END -1 DUR_END Minion TYPE_END Mage PLAYER_CLS_END NIL RACE_END Epic RARITY_END NIL
+canonicalized reference: 
+class Spellbender(SecretCard):
+
+    def __init__(self):
+        super().__init__('Spellbender', 3, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC)
+        self.player = None
+
+    def _reveal(self, card, index):
+        if card.is_spell() and len(self.player.minions
+            ) < 7 and card.target and card.target.is_minion():
+            SpellbenderMinion().summon(self.player, self.player.game, len(
+                self.player.minions))
+            card.target = self.player.minions[-1]
+            super().reveal()
+
+    def activate(self, player):
+        player.game.current_player.bind('card_played', self._reveal)
+        self.player = player
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('card_played', self._reveal)
+        self.player = None
+canonicalized prediction: 
+class Spellbender(MinionCard):
+
+    def __init__(self):
+        super().__init__('Spellbender', 0, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC, combo=Battlecry(RARITY_END(), PlayerSelector()))
+
+    def create_minion(self, player):
+        return Minion(1, 3)
+reference code for bleu calculation: 
+class Spellbender(SecretCard):
+
+    def __init__(self):
+        super().__init__('Spellbender', 3, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC)
+        self.player = None
+
+    def _reveal(self, card, index):
+        if card.is_spell() and len(self.player.minions
+            ) < 7 and card.target and card.target.is_minion():
+            SpellbenderMinion().summon(self.player, self.player.game, len(
+                self.player.minions))
+            card.target = self.player.minions[-1]
+            super().reveal()
+
+    def activate(self, player):
+        player.game.current_player.bind('card_played', self._reveal)
+        self.player = player
+
+    def deactivate(self, player):
+        player.game.current_player.unbind('card_played', self._reveal)
+        self.player = None
+predicted code for bleu calculation: 
+class Spellbender(MinionCard):
+
+    def __init__(self):
+        super().__init__('Spellbender', 0, CHARACTER_CLASS.MAGE,
+            CARD_RARITY.EPIC, combo=Battlecry(RARITY_END(), PlayerSelector()))
+
+    def create_minion(self, player):
+        return Minion(1, 3)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 591
+intent: 
+Summoning Portal NAME_END 0 ATK_END 4 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Warlock PLAYER_CLS_END NIL RACE_END Common RARITY_END Your minions cost ( 2 ) less , but not less than ( 1 ) .
+canonicalized reference: 
+class SummoningPortal(MinionCard):
+
+    def __init__(self):
+        super().__init__('Summoning Portal', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(0, 4, auras=[Aura(ManaChange(-2, 1, minimum=1),
+            CardSelector(condition=IsMinion()))])
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Summoning Portal', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(0, 4, auras=[Aura(ManaChange(1), CardSelector(
+            condition=IsMinion()))])
+reference code for bleu calculation: 
+class SummoningPortal(MinionCard):
+
+    def __init__(self):
+        super().__init__('Summoning Portal', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(0, 4, auras=[Aura(ManaChange(-2, 1, minimum=1),
+            CardSelector(condition=IsMinion()))])
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Summoning Portal', 4, CHARACTER_CLASS.WARLOCK,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(0, 4, auras=[Aura(ManaChange(1), CardSelector(
+            condition=IsMinion()))])
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 592
+intent: 
+Thrallmar Farseer NAME_END 2 ATK_END 3 DEF_END 3 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END < b > Windfury < /b >
+canonicalized reference: 
+class ThrallmarFarseer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Thrallmar Farseer', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 3, windfury=True)
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Thrallmar Farseer', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 3, **[Aura(ChangeAttack(2), MinionSelector(IsType(
+            MINION_TYPE.BEAST)))])
+reference code for bleu calculation: 
+class ThrallmarFarseer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Thrallmar Farseer', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 3, windfury=True)
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Thrallmar Farseer', 3, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(2, 3, **[Aura(ChangeAttack(2), MinionSelector(IsType(
+            MINION_TYPE.BEAST)))])
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 593
+intent: 
+Upgrade ! NAME_END -1 ATK_END -1 DEF_END 1 COST_END -1 DUR_END Spell TYPE_END Warrior PLAYER_CLS_END NIL RACE_END Rare RARITY_END If you have a weapon , give it +1/+1 . Otherwise equip a 1/3 weapon .
+canonicalized reference: 
+class Upgrade(SpellCard):
+
+    def __init__(self):
+        super().__init__('Upgrade!', 1, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        from hearthbreaker.cards.weapons.warrior import HeavyAxe
+        if player.weapon:
+            player.weapon.durability += 1
+            player.weapon.base_attack += 1
+        else:
+            heavy_axe = HeavyAxe().create_weapon(player)
+            heavy_axe.equip(player)
+canonicalized prediction: 
+class weapon(SpellCard):
+
+    def __init__(self):
+        super().__init__('Upgrade !', 1, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        for minion in targets:
+            minion.die(self)
+reference code for bleu calculation: 
+class Upgrade(SpellCard):
+
+    def __init__(self):
+        super().__init__('Upgrade!', 1, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        from hearthbreaker.cards.weapons.warrior import HeavyAxe
+        if player.weapon:
+            player.weapon.durability += 1
+            player.weapon.base_attack += 1
+        else:
+            heavy_axe = HeavyAxe().create_weapon(player)
+            heavy_axe.equip(player)
+predicted code for bleu calculation: 
+class weapon(SpellCard):
+
+    def __init__(self):
+        super().__init__('Upgrade !', 1, CHARACTER_CLASS.WARRIOR,
+            CARD_RARITY.RARE)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        targets.extend(game.current_player.minions)
+        for minion in targets:
+            minion.die(self)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 594
+intent: 
+Wisp NAME_END 1 ATK_END 1 DEF_END 0 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END NIL RACE_END Common RARITY_END NIL
+canonicalized reference: 
+class Wisp(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wisp', 0, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(1, 1)
+canonicalized prediction: 
+class Wisp(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wisp', 0, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON,
+            False, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, p):
+        return Minion(1, 1)
+reference code for bleu calculation: 
+class Wisp(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wisp', 0, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON)
+
+    def create_minion(self, player):
+        return Minion(1, 1)
+predicted code for bleu calculation: 
+class Wisp(MinionCard):
+
+    def __init__(self):
+        super().__init__('Wisp', 0, CHARACTER_CLASS.ALL, CARD_RARITY.COMMON,
+            False, minion_type=MINION_TYPE.BEAST)
+
+    def create_minion(self, p):
+        return Minion(1, 1)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 595
+intent: 
+Black Whelp NAME_END 2 ATK_END 1 DEF_END 1 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END Dragon RACE_END Common RARITY_END NIL
+canonicalized reference: 
+class BlackWhelp(MinionCard):
+
+    def __init__(self):
+        super().__init__('Black Whelp', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .COMMON, False, MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+canonicalized prediction: 
+class Black(MinionCard):
+
+    def __init__(self):
+        super().__init__('Black Whelp', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .COMMON, minion_type=MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+reference code for bleu calculation: 
+class BlackWhelp(MinionCard):
+
+    def __init__(self):
+        super().__init__('Black Whelp', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .COMMON, False, MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+predicted code for bleu calculation: 
+class Black(MinionCard):
+
+    def __init__(self):
+        super().__init__('Black Whelp', 1, CHARACTER_CLASS.ALL, CARD_RARITY
+            .COMMON, minion_type=MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(2, 1)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 596
+intent: 
+Dragonkin Sorcerer NAME_END 3 ATK_END 5 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END Dragon RACE_END Common RARITY_END Whenever < b > you < /b > target this minion with a spell , gain +1/+1 .
+canonicalized reference: 
+class DragonkinSorcerer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Dragonkin Sorcerer', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellTargeted(), [ActionTag(
+            Give([Buff(ChangeAttack(1)), Buff(ChangeHealth(1))]),
+            SelfSelector())])])
+canonicalized prediction: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Dragonkin Sorcerer', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellCast(), ActionTag(Give([
+            Buff(ChangeAttack(1)), Buff(ChangeHealth(1))]), SelfSelector())
+            ), Effect(SpellCast(IsMinion()), ActionTag(Give([Buff(
+            ChangeAttack(1)), Buff(ChangeHealth(1))]), SelfSelector()))])
+reference code for bleu calculation: 
+class DragonkinSorcerer(MinionCard):
+
+    def __init__(self):
+        super().__init__('Dragonkin Sorcerer', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DRAGON)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellTargeted(), [ActionTag(
+            Give([Buff(ChangeAttack(1)), Buff(ChangeHealth(1))]),
+            SelfSelector())])])
+predicted code for bleu calculation: 
+class GrimscaleOracle(MinionCard):
+
+    def __init__(self):
+        super().__init__('Dragonkin Sorcerer', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.MECH)
+
+    def create_minion(self, player):
+        return Minion(3, 5, effects=[Effect(SpellCast(), ActionTag(Give([
+            Buff(ChangeAttack(1)), Buff(ChangeHealth(1))]), SelfSelector())
+            ), Effect(SpellCast(IsMinion()), ActionTag(Give([Buff(
+            ChangeAttack(1)), Buff(ChangeHealth(1))]), SelfSelector()))])
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 597
+intent: 
+Hungry Dragon NAME_END 5 ATK_END 6 DEF_END 4 COST_END -1 DUR_END Minion TYPE_END Neutral PLAYER_CLS_END Dragon RACE_END Common RARITY_END < b > Battlecry : < /b > Summon a random 1-Cost minion for your opponent .
+canonicalized reference: 
+class HungryDragon(MinionCard):
+
+    def __init__(self):
+        super().__init__('Hungry Dragon', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DRAGON, battlecry=
+            Battlecry(Summon(CardQuery(conditions=[ManaCost(1), IsMinion()]
+            )), PlayerSelector(EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(5, 6)
+canonicalized prediction: 
+class Dragon(MinionCard):
+
+    def __init__(self):
+        super().__init__('Hungry Dragon', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DRAGON, battlecry=
+            Battlecry(Summon(Whelp(), 6), PlayerSelector(players=BothPlayer()))
+            )
+
+    def create_minion(self, player):
+        return Minion(5, 6)
+reference code for bleu calculation: 
+class HungryDragon(MinionCard):
+
+    def __init__(self):
+        super().__init__('Hungry Dragon', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DRAGON, battlecry=
+            Battlecry(Summon(CardQuery(conditions=[ManaCost(1), IsMinion()]
+            )), PlayerSelector(EnemyPlayer())))
+
+    def create_minion(self, player):
+        return Minion(5, 6)
+predicted code for bleu calculation: 
+class Dragon(MinionCard):
+
+    def __init__(self):
+        super().__init__('Hungry Dragon', 4, CHARACTER_CLASS.ALL,
+            CARD_RARITY.COMMON, minion_type=MINION_TYPE.DRAGON, battlecry=
+            Battlecry(Summon(Whelp(), 6), PlayerSelector(players=BothPlayer()))
+            )
+
+    def create_minion(self, player):
+        return Minion(5, 6)
+pred_shorter_than_ref: True
+weired: False
+------------------------------------------------------------
+------------------------------------------------------------
+example_id: 598
+intent: 
+Solemn Vigil NAME_END -1 ATK_END -1 DEF_END 5 COST_END -1 DUR_END Spell TYPE_END Paladin PLAYER_CLS_END NIL RACE_END Common RARITY_END Draw 2 cards . Costs ( 1 ) less for each minion that died this turn .
+canonicalized reference: 
+class SolemnVigil(SpellCard):
+
+    def __init__(self):
+        super().__init__('Solemn Vigil', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON, buffs=[Buff(ManaChange(Count(
+            DeadMinionSelector(players=BothPlayer())), -1))])
+
+    def use(self, player, game):
+        super().use(player, game)
+        for n in range(0, 2):
+            player.draw()
+canonicalized prediction: 
+class cards(SpellCard):
+
+    def __init__(self):
+        super().__init__('Solemn Vigil', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        if (self.target.card.minion_type is MINION_TYPE.DEMON and self.
+            target in targets):
+            self.target.change_attack(2)
+            self.target.increase_health(2)
+        else:
+            self.target.change_attack(2)
+reference code for bleu calculation: 
+class SolemnVigil(SpellCard):
+
+    def __init__(self):
+        super().__init__('Solemn Vigil', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON, buffs=[Buff(ManaChange(Count(
+            DeadMinionSelector(players=BothPlayer())), -1))])
+
+    def use(self, player, game):
+        super().use(player, game)
+        for n in range(0, 2):
+            player.draw()
+predicted code for bleu calculation: 
+class cards(SpellCard):
+
+    def __init__(self):
+        super().__init__('Solemn Vigil', 5, CHARACTER_CLASS.PALADIN,
+            CARD_RARITY.COMMON, target_func=hearthbreaker.targeting.
+            find_minion_spell_target)
+
+    def use(self, player, game):
+        super().use(player, game)
+        targets = copy.copy(game.other_player.minions)
+        if (self.target.card.minion_type is MINION_TYPE.DEMON and self.
+            target in targets):
+            self.target.change_attack(2)
+            self.target.increase_health(2)
+        else:
+            self.target.change_attack(2)
+pred_shorter_than_ref: False
+weired: False
+------------------------------------------------------------

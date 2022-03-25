@@ -121,7 +121,7 @@ def compute_relation(relation):
 def fixRelationWithPosition(relation,q_len):
     t_len = len(relation)
     #api对应api的关系修改后，11的值要变为最下面那个循环里的最大值
-    fixed_relations = [[j+11 if j!=0 else 0 for j in i] for i in relation]
+    fixed_relations = np.array([[j+11 if j!=0 else 0 for j in i] for i in relation])
     #query对应api的默认关系为5
     fixed_relations[0:q_len,q_len:t_len] = [[5 if j==0 else j for j in i] for i in fixed_relations[0:q_len,q_len:t_len]]
     #api对应query的默认关系为6
@@ -143,6 +143,7 @@ def fixRelationWithPosition(relation,q_len):
             elif i-j >= 2:fixed_relations[i][j] = 7
             elif j-i == 1:fixed_relations[i][j] = 10
             elif j-i >= 2:fixed_relations[i][j] = 11
+    # print(fixed_relations)
     return fixed_relations
 
 

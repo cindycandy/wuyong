@@ -6,7 +6,6 @@ os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 
 class PositionwiseFeedForward(nn.Module):
     "Implements FFN equation."
-
     def __init__(self, d_model, d_ff, dropout=0.1):
         super(PositionwiseFeedForward, self).__init__()
         self.w_1 = nn.Linear(d_model, d_ff)
@@ -17,11 +16,11 @@ class PositionwiseFeedForward(nn.Module):
         return self.w_2(self.dropout(torch.nn.functional.relu(self.w_1(x))))
 
 class Encoder(nn.Module):
-    def __init__(self,d_model,dk,heads,d_ff,nx,alpha):
+    def __init__(self,d_model,dk,heads,d_ff,nx,alpha,mode):
         super(Encoder, self).__init__()
         #重复模型块用nn.ModuleList，参数是一个[x for i in range(t)],但是没有实现forward功能；Sequential要确保输入输入维度匹配，实现了forward功能
         # self.encoder = torch.nn.ModuleList([EncoderLayer(d_model,dk,heads_1+heads_2,d_ff) for _ in range(nx)])
-        self.layers = torch.nn.ModuleList([EncoderLayer(d_model, dk, heads,alpha) for _ in range(nx)])
+        self.layers = torch.nn.ModuleList([EncoderLayer(d_model, dk, heads,alpha,mode) for _ in range(nx)])
         self.norm = nn.LayerNorm(d_model)
     def forward(self,input,mask,relation):
         enc_self_attns = []
@@ -32,7 +31,7 @@ class Encoder(nn.Module):
 
 
 class EncoderLayer(nn.Module):
-    def __init__(self,d_model,dk,heads,alpha):
+    def __init__(self,d_model,dk,heads,alpha,mode):
         super(EncoderLayer, self).__init__()
         self.attLayer = AttSubLayer(d_model,dk,heads)
         self.attLayerv2 = AttSubLayerv2(d_model,dk,heads)
@@ -40,16 +39,22 @@ class EncoderLayer(nn.Module):
         self.feedLayer = PositionwiseFeedForward(d_model, 4*d_model)
         self.norm = nn.LayerNorm(d_model)
         self.dropout = nn.Dropout(0.1)
-        self.heads_1 = 4
-        self.heads_2 = 0
-        self.dataflowLayer = adjAttSubLayer(d_model,dk,self.heads_1,self.heads_2,alpha)
+        self.mode = mode
+        # self.dataflowLayer = dataflowAttSubLayer(d_model,dk,heads,alpha)
     def forward(self,input,mask,relation):
         # att_output,att_matrix = self.adjAttSubLayer(input,input,input,mask,relation)
         # att_output, att_matrix = self.attLayer(input, input, input, mask)
+
         backup = input
         #这里的两个norm操作是仿照annotated transformer，就和relation机制一样
         input = self.norm(input)
-        att_output, att_matrix = self.attLayerv2(input, input, input, mask,relation)
+        att_output, att_matrix = [],[]
+        if self.mode=="rat":
+            att_output, att_matrix = self.ratLayer(input, input, input, mask,relation)
+        elif self.mode == "plus":
+            att_output, att_matrix = self.attLayerv2(input, input, input, mask,relation)
+        elif self.mode == "transformer":
+            att_output, att_matrix = self.attLayer(input, input, input, mask,relation)
         att_output = backup + self.dropout(att_output)
         feed_input = self.norm(att_output)
         output = self.feedLayer(feed_input)
@@ -106,33 +111,34 @@ class ratAttSublayer(nn.Module):
         self.heads = heads
         self.d_model = d_model
         self.num_relation_kinds = 16
+        self.dropout = nn.Dropout(0.1)
         self.linears = torch.nn.ModuleList([torch.nn.Linear(d_model,dk*heads,bias=False) for _ in range(3)])
         self.fc = torch.nn.Linear(dk * heads, d_model)
-        self.relation_k_emb = nn.Embedding(self.num_relation_kinds, self.self_attn.d_k)
-        self.relation_v_emb = nn.Embedding(self.num_relation_kinds, self.self_attn.d_k)
+        self.relation_k_emb = nn.Embedding(self.num_relation_kinds, dk)
+        self.relation_v_emb = nn.Embedding(self.num_relation_kinds, dk)
 
     def forward(self,query,key,value,mask,relation):
         batch_size = query.shape[0]
         Q,K,V = [l(x).reshape(batch_size,-1,self.heads,self.dk).transpose(2,1) for l,x in zip(self.linears, (query,key,value))]
-        relation = relation.unsqueeze(1)
-        scores = torch.matmul(Q, K.transpose(-1,-2)) + torch.matmul(Q, relation)
+        relation_k = self.relation_k_emb(relation)
+        # relation = relation.unsqueeze(1)
+        scores = torch.matmul(Q, K.transpose(-1,-2)) + torch.matmul(Q.transpose(2,1), relation_k.transpose(-2,-1)).transpose(2,1)
         scores = scores / torch.sqrt(self.dk)
         mask = mask.unsqueeze(1).repeat(1,self.heads, 1,1)
         #给true的地方赋值-1e9
         scores = scores.masked_fill_(mask==0,-1e9)
-        scores = torch.softmax(scores, dim=-1)
-        att = torch.matmul(scores,V).transpose(2,1) + torch.matmul(scores, relation)
+        scores = self.dropout(torch.softmax(scores, dim=-1))
+        relation_v = self.relation_v_emb(relation)
+        att = torch.matmul(scores,V).transpose(2,1) + torch.matmul(scores.transpose(2,1), relation_v)
         att = att.reshape(batch_size, -1, self.heads*self.dk)
         att = self.fc(att)
         return att, scores
 
-class adjAttSubLayer(nn.Module):
-    def __init__(self,d_model,dk,heads_1,heads_2,alpha):
-        super(adjAttSubLayer, self).__init__()
+class dataflowAttSubLayer(nn.Module):
+    def __init__(self,d_model,dk,heads,alpha):
+        super(dataflowAttSubLayer, self).__init__()
         self.dk = torch.tensor(dk)
-        self.heads_1 = heads_1
-        self.heads_2 = heads_2
-        self.heads = heads_1+heads_2
+
         self.alpha = alpha
         self.d_model = d_model
         self.linears_1 = torch.nn.ModuleList([torch.nn.Linear(d_model,dk*heads_1,bias=False) for _ in range(3)])
